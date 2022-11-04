@@ -3,8 +3,8 @@ package com.tikifake.service;
 import java.util.List;
 
 import com.tikifake.entity.Category;
-import com.tikifake.model.CategoryCreator;
 import com.tikifake.model.ICategory;
+import com.tikifake.model.creator.CategoryCreator;
 
 public interface CategoryService {
 

@@ -1,6 +1,8 @@
 package com.tikifake.model;
 
-import com.tikifake.entity.Category;
+import java.time.LocalDate;
+
+import com.tikifake.entity.CategorySub;
 import com.tikifake.entity.Product;
 
 public class ProductCreator {
@@ -15,24 +17,21 @@ public class ProductCreator {
 
 	private String brand;
 
-	private String origin;
-
-	private String model;
-
 	private String madeBy;
+	
+	private LocalDate createDate;
 
-	private Long categoryId;
+	private Long categorySubId;
 
-	public Product convertDTOToEntity(Category category) {
+	public Product convertDTOToEntity(CategorySub categorySub) {
 		Product product = new Product();
 		product.setName(this.name);
 		product.setDescription(this.description);
 		product.setPrice(this.price);
-//		product.setCategory(category);
+		product.setCategorySub(categorySub);
 		product.setBrand(this.brand);
 		product.setImage(this.image);
-		product.setOrigin(this.origin);
-		product.setModel(this.model);
+		product.setCreateDate(this.createDate);
 		product.setMadeBy(this.madeBy);
 		return product;
 	}
@@ -77,22 +76,6 @@ public class ProductCreator {
 		this.brand = brand;
 	}
 
-	public String getOrigin() {
-		return origin;
-	}
-
-	public void setOrigin(String origin) {
-		this.origin = origin;
-	}
-
-	public String getModel() {
-		return model;
-	}
-
-	public void setModel(String model) {
-		this.model = model;
-	}
-
 	public String getMadeBy() {
 		return madeBy;
 	}
@@ -101,11 +84,20 @@ public class ProductCreator {
 		this.madeBy = madeBy;
 	}
 
-	public Long getCategoryId() {
-		return categoryId;
+	public Long getCategorySubId() {
+		return categorySubId;
 	}
 
-	public void setCategoryId(Long categoryId) {
-		this.categoryId = categoryId;
+	public void setCategorySubId(Long categorySubId) {
+		this.categorySubId = categorySubId;
 	}
+
+	public LocalDate getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(LocalDate createDate) {
+		this.createDate = createDate;
+	}
+
 }

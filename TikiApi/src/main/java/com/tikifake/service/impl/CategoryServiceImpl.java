@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tikifake.entity.Category;
-import com.tikifake.model.CategoryCreator;
 import com.tikifake.model.ICategory;
+import com.tikifake.model.creator.CategoryCreator;
 import com.tikifake.repositoty.CategoryRepository;
 import com.tikifake.service.CategoryService;
 

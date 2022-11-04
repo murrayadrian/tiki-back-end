@@ -1,5 +1,7 @@
 package com.tikifake.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,10 +12,15 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Categories")
-public class Category {
+public class Category implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6867992745893110729L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_category")
-	@SequenceGenerator(name = "seq_category", allocationSize = 5)
+	@SequenceGenerator(name = "seq_category", allocationSize = 1, initialValue = 1)
 	private Long id;
 
 	@Column(name = "name")

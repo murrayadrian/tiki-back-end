@@ -19,5 +19,5 @@ public interface IProduct {
 	
 	public String getMadeBy();
 
-	public Long getCategoryId();
+	public Long getCategoryModelId();
 }

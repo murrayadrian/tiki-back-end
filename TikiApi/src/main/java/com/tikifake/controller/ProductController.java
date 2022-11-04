@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tikifake.model.ProductAddition;
 import com.tikifake.model.ProductCreator;
+import com.tikifake.model.response.ProductAddition;
 import com.tikifake.model.IProduct;
 import com.tikifake.service.ProductService;
 

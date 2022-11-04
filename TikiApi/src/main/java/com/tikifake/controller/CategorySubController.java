@@ -11,39 +11,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tikifake.entity.Category;
-import com.tikifake.model.ICategory;
-import com.tikifake.model.creator.CategoryCreator;
-import com.tikifake.service.CategoryService;
+import com.tikifake.entity.CategorySub;
+import com.tikifake.model.ICategorySub;
+import com.tikifake.model.creator.CategorySubCreator;
+import com.tikifake.service.CategorySubService;
 
 @RestController
-@RequestMapping("/category")
-public class CategoryController {
+@RequestMapping("/categorysub")
+public class CategorySubController {
 
 	@Autowired
-	private CategoryService categoryService;
+	private CategorySubService categorySubService;
 
 	@RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Object> getById(@PathVariable(value = "id") Long categoryId) {
-		ICategory category = categoryService.getDetailById(categoryId);
-		if (category == null) {
+	public ResponseEntity<Object> getById(@PathVariable(value = "id") Long categorySubId) {
+		ICategorySub categorySub = categorySubService.getDetailById(categorySubId);
+		if (categorySub == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Category Not Found");
 		}
-		return ResponseEntity.ok().body(category);
+		return ResponseEntity.ok().body(categorySub);
 	}
 
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	public ResponseEntity<Object> getAll() {
-		List<ICategory> categories = categoryService.getAll();
-		if (categories == null) {
+		List<ICategorySub> categoriesSub = categorySubService.getAll();
+		if (categoriesSub == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fail");
 		}
-		return ResponseEntity.ok().body(categories);
+		return ResponseEntity.ok().body(categoriesSub);
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public ResponseEntity<Object> addCategory(@RequestBody CategoryCreator categoryCreator) {
-		Category category = categoryService.save(categoryCreator);
-		return ResponseEntity.ok().body(category);
+	public ResponseEntity<Object> addCategory(@RequestBody CategorySubCreator categorySubCreator) {
+		CategorySub categorySub = categorySubService.save(categorySubCreator);
+		return ResponseEntity.ok().body(categorySub);
 	}
+
 }

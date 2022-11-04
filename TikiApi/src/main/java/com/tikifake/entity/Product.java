@@ -1,8 +1,10 @@
 package com.tikifake.entity;
 
+import java.io.Serializable;
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,16 +15,21 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Products")
-public class Product {
+public class Product implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3782633498469009466L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_product")
-	@SequenceGenerator(name = "seq_product", allocationSize = 5)
+	@SequenceGenerator(name = "seq_product", allocationSize = 1, initialValue = 1)
 	private Long id;
 
 	@Column(name = "name")
 	private String name;
 
-	@Column(name = "description")
+	@Column(name = "description", columnDefinition = "text")
 	private String description;
 
 	@Column(name = "price")
@@ -33,19 +40,20 @@ public class Product {
 
 	@Column(name = "brand")
 	private String brand;
-
-	@Column(name = "origin")
-	private String origin;
-
-	@Column(name = "model")
-	private String model;
-
+	
 	@Column(name = "made_by")
 	private String madeBy;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "category_model_id")
-	private CategoryModel categoryModel;
+	@Column(name = "create_date")
+	private LocalDate createDate;
+	
+	@ManyToOne
+	@JoinColumn(name = "category_sub_id")
+	private CategorySub categorySub;
+
+	public Long getCategorySubId() {
+		return categorySub.getId();
+	}
 
 	public Long getId() {
 		return id;
@@ -95,22 +103,6 @@ public class Product {
 		this.brand = brand;
 	}
 
-	public String getOrigin() {
-		return origin;
-	}
-
-	public void setOrigin(String origin) {
-		this.origin = origin;
-	}
-
-	public String getModel() {
-		return model;
-	}
-
-	public void setModel(String model) {
-		this.model = model;
-	}
-
 	public String getMadeBy() {
 		return madeBy;
 	}
@@ -119,11 +111,20 @@ public class Product {
 		this.madeBy = madeBy;
 	}
 
-	public CategoryModel getCategoryModel() {
-		return categoryModel;
+	public CategorySub getCategorySub() {
+		return categorySub;
 	}
 
-	public void setCategoryModel(CategoryModel categoryModel) {
-		this.categoryModel = categoryModel;
+	public void setCategorySub(CategorySub categorySub) {
+		this.categorySub = categorySub;
 	}
+
+	public LocalDate getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(LocalDate createDate) {
+		this.createDate = createDate;
+	}
+
 }

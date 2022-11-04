@@ -5,12 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tikifake.entity.Category;
+import com.tikifake.entity.CategorySub;
 import com.tikifake.entity.Product;
-import com.tikifake.model.ProductAddition;
-import com.tikifake.model.ProductCreator;
 import com.tikifake.model.IProduct;
-import com.tikifake.repositoty.CategoryRepository;
+import com.tikifake.model.ProductCreator;
+import com.tikifake.model.response.ProductAddition;
+import com.tikifake.repositoty.CategorySubRepository;
 import com.tikifake.repositoty.ProductRepository;
 import com.tikifake.service.ProductService;
 
@@ -21,7 +21,7 @@ public class ProductServiceImpl implements ProductService {
 	private ProductRepository productRepository;
 	
 	@Autowired
-	private CategoryRepository categoryRepository;
+	private CategorySubRepository categorySubRepository;
 	
 	@Override
 	public IProduct getDetailById(Long productId) {
@@ -35,8 +35,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public ProductAddition save(ProductCreator productCreator) {
-		Category category = categoryRepository.findById(productCreator.getCategoryId()).get();
-		Product product = productCreator.convertDTOToEntity(category);
+		CategorySub categoryModel = categorySubRepository.findById(productCreator.getCategorySubId()).get();
+		Product product = productCreator.convertDTOToEntity(categoryModel);
 		Product result = productRepository.save(product);
 		ProductAddition productAdd = new ProductAddition(result);
 		return productAdd;
