@@ -1,5 +1,6 @@
 package com.tikifake.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tikifake.entity.Category;
 import com.tikifake.model.ICategory;
 import com.tikifake.model.creator.CategoryCreator;
+import com.tikifake.model.response.CategoryResponse;
+import com.tikifake.model.update.CategoryUpdate;
 import com.tikifake.service.CategoryService;
 
 @RestController
@@ -43,7 +45,33 @@ public class CategoryController {
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public ResponseEntity<Object> addCategory(@RequestBody CategoryCreator categoryCreator) {
-		Category category = categoryService.save(categoryCreator);
-		return ResponseEntity.ok().body(category);
+		CategoryResponse categoryResponse = categoryService.save(categoryCreator);
+		return ResponseEntity.ok().body(categoryResponse);
+	}
+	
+	@RequestMapping(value = "/addList", method = RequestMethod.POST)
+	public ResponseEntity<Object> addList(@RequestBody List<CategoryCreator> categoryCreators){
+		List<CategoryResponse> response = new ArrayList<>();
+		
+		for(CategoryCreator categoryCreator : categoryCreators) {
+			CategoryResponse categoryResponse = categoryService.save(categoryCreator);
+			response.add(categoryResponse);
+		}
+		if (response.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fail");
+		}
+		
+		return ResponseEntity.ok().body(response);	
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.PUT)
+	public ResponseEntity<Object> update(@RequestBody CategoryUpdate categoryUpdate){
+		CategoryResponse categoryResponse = categoryService.update(categoryUpdate);
+		
+		if (categoryResponse == null) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fail");
+		}
+		
+		return ResponseEntity.ok().body(categoryResponse);	
 	}
 }

@@ -2,17 +2,20 @@ package com.tikifake.service;
 
 import java.util.List;
 
-import com.tikifake.entity.CategorySub;
 import com.tikifake.model.ICategorySub;
 import com.tikifake.model.creator.CategorySubCreator;
+import com.tikifake.model.response.CategorySubResponse;
+import com.tikifake.model.update.CategorySubUpdate;
 
 public interface CategorySubService {
 
-	public ICategorySub getDetailById(Long categoryBrandId);
+	public ICategorySub getDetailById(Long id);
 	
 	public List<ICategorySub> getAll();
 	
-	public CategorySub save(CategorySubCreator categoryBrandCreator);
+	public List<ICategorySub> getByCategoryId(Long id);
 	
-	public CategorySub update(CategorySub categoryBrand);
+	public CategorySubResponse save(CategorySubCreator categorySubCreator);
+	
+	public CategorySubResponse update(CategorySubUpdate categorySubUpdate);
 }

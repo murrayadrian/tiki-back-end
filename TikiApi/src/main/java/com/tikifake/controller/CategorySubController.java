@@ -1,5 +1,6 @@
 package com.tikifake.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tikifake.entity.CategorySub;
 import com.tikifake.model.ICategorySub;
 import com.tikifake.model.creator.CategorySubCreator;
+import com.tikifake.model.response.CategorySubResponse;
+import com.tikifake.model.update.CategorySubUpdate;
 import com.tikifake.service.CategorySubService;
 
 @RestController
-@RequestMapping("/categorysub")
+@RequestMapping("/categorySub")
 public class CategorySubController {
 
 	@Autowired
@@ -40,11 +43,39 @@ public class CategorySubController {
 		}
 		return ResponseEntity.ok().body(categoriesSub);
 	}
+	
+	
+	@RequestMapping(value = "/getByCategoryId/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Object> getByCategoryId(@PathVariable("id") Long id) {
+		List<ICategorySub> response = categorySubService.getByCategoryId(id);
+		if (response.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fail");
+		}
+		return ResponseEntity.ok().body(response);
+		
+	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public ResponseEntity<Object> addCategory(@RequestBody CategorySubCreator categorySubCreator) {
-		CategorySub categorySub = categorySubService.save(categorySubCreator);
-		return ResponseEntity.ok().body(categorySub);
+	public ResponseEntity<Object> addCategorySub(@RequestBody CategorySubCreator categorySubCreator) {
+		CategorySubResponse response = categorySubService.save(categorySubCreator);
+		return ResponseEntity.ok().body(response);
 	}
+	
+	
+	@RequestMapping(value = "/addList", method = RequestMethod.POST)
+	public ResponseEntity<Object> addList(@RequestBody List<CategorySubCreator> categorySubCreatorList) {
+		List<CategorySubResponse> responseList = new ArrayList<>();
+		for(CategorySubCreator categorySubCreator : categorySubCreatorList) {
+			CategorySubResponse response = categorySubService.save(categorySubCreator);
+			responseList.add(response);
+		}
+		return ResponseEntity.ok().body(responseList);
+	}
+	@RequestMapping(value = "/update", method = RequestMethod.PUT)
+	public ResponseEntity<Object> updateCategorySub(@RequestBody CategorySubUpdate categorySubUpdate) {
+		CategorySubResponse response = categorySubService.update(categorySubUpdate);
+		return ResponseEntity.ok().body(response);	
+	}
+	
 
 }

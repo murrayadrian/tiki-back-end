@@ -1,7 +1,7 @@
 package com.tikifake.entity;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,22 +35,24 @@ public class Product implements Serializable {
 	@Column(name = "price")
 	private double price;
 
-	@Column(name = "image")
+	@Column(name = "image", columnDefinition = "text")
 	private String image;
 
 	@Column(name = "brand")
 	private String brand;
 	
-	@Column(name = "made_by")
-	private String madeBy;
+	@Column(name = "made_in")
+	private String madeIn;
 
 	@Column(name = "create_date")
-	private LocalDate createDate;
+	private LocalDateTime createdDate;
 	
 	@ManyToOne
 	@JoinColumn(name = "category_sub_id")
 	private CategorySub categorySub;
 
+	
+	
 	public Long getCategorySubId() {
 		return categorySub.getId();
 	}
@@ -103,12 +105,13 @@ public class Product implements Serializable {
 		this.brand = brand;
 	}
 
-	public String getMadeBy() {
-		return madeBy;
+
+	public String getMadeIn() {
+		return madeIn;
 	}
 
-	public void setMadeBy(String madeBy) {
-		this.madeBy = madeBy;
+	public void setMadeIn(String madeIn) {
+		this.madeIn = madeIn;
 	}
 
 	public CategorySub getCategorySub() {
@@ -119,12 +122,11 @@ public class Product implements Serializable {
 		this.categorySub = categorySub;
 	}
 
-	public LocalDate getCreateDate() {
-		return createDate;
+	public LocalDateTime getCreatedDate() {
+		return createdDate;
 	}
 
-	public void setCreateDate(LocalDate createDate) {
-		this.createDate = createDate;
+	public void setCreatedDate(LocalDateTime createdDate) {
+		this.createdDate = createdDate;
 	}
-
 }

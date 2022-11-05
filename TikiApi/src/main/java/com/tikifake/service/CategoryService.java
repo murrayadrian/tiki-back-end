@@ -2,9 +2,10 @@ package com.tikifake.service;
 
 import java.util.List;
 
-import com.tikifake.entity.Category;
 import com.tikifake.model.ICategory;
 import com.tikifake.model.creator.CategoryCreator;
+import com.tikifake.model.response.CategoryResponse;
+import com.tikifake.model.update.CategoryUpdate;
 
 public interface CategoryService {
 
@@ -12,7 +13,7 @@ public interface CategoryService {
 
 	public List<ICategory> getAll();
 
-	public Category save(CategoryCreator categoryCreator);
+	public CategoryResponse save(CategoryCreator categoryCreator);
 
-	public Category update(Category category);
+	public CategoryResponse update(CategoryUpdate categoryUpdate);
 }

@@ -9,6 +9,8 @@ import com.tikifake.entity.Category;
 import com.tikifake.entity.CategorySub;
 import com.tikifake.model.ICategorySub;
 import com.tikifake.model.creator.CategorySubCreator;
+import com.tikifake.model.response.CategorySubResponse;
+import com.tikifake.model.update.CategorySubUpdate;
 import com.tikifake.repositoty.CategoryRepository;
 import com.tikifake.repositoty.CategorySubRepository;
 import com.tikifake.service.CategorySubService;
@@ -23,26 +25,35 @@ public class CategorySubServiceImpl implements CategorySubService{
 	private CategoryRepository categoryRepository;
 	
 	@Override
-	public ICategorySub getDetailById(Long categoryBrandId) {
-		return categorySubRepository.findByIdDTO(categoryBrandId);
+	public ICategorySub getDetailById(Long id) {
+		return categorySubRepository.findByIdDTO(id);
 	}
 
 	@Override
 	public List<ICategorySub> getAll() {
 		return categorySubRepository.findAllDTO();
 	}
-
 	@Override
-	public CategorySub save(CategorySubCreator categorySubCreator) {
-		Category category = categoryRepository.findById(categorySubCreator.getCategoryId()).get();
-		CategorySub categoryBrand = categorySubCreator.convertModelToEntity(category);
-		return categorySubRepository.save(categoryBrand);
+	public List<ICategorySub> getByCategoryId(Long id) {
+		return categorySubRepository.findByCategoryId(id);
 	}
 
 	@Override
-	public CategorySub update(CategorySub categoryBrand) {
-		// TODO Auto-generated method stub
-		return null;
+	public CategorySubResponse save(CategorySubCreator categorySubCreator) {
+		Category category = categoryRepository.findById(categorySubCreator.getCategoryId()).get();
+		CategorySub categorySub = categorySubCreator.convertModelToEntity(category);
+		CategorySub result = categorySubRepository.save(categorySub);
+		CategorySubResponse response = new CategorySubResponse().convertEntityToResponse(result);
+		return response;
+	}
+
+	@Override
+	public CategorySubResponse update(CategorySubUpdate categorySubUpdate) {
+		Category category = categoryRepository.findById(categorySubUpdate.getCategoryId()).get();
+		CategorySub categorySub = categorySubUpdate.convertToEntity(category);
+		CategorySub result = categorySubRepository.save(categorySub);
+		CategorySubResponse response = new CategorySubResponse().convertEntityToResponse(result);
+		return response;
 	}
 
 }

@@ -14,4 +14,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 	@Query("select t from Product t where t.id= ?1")
 	public IProduct findByIdDTO(Long id);
+	
+	@Query("select p from Product p JOIN FETCH p.categorySub WHERE p.categorySub.id = ?1")
+	public List<IProduct> findByCategorySubId(Long id);
+	
 }
