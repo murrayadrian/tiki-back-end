@@ -60,6 +60,10 @@ public class Product implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "category_sub_id")
 	private CategorySub categorySub;
+	
+	@ManyToOne
+	@JoinColumn(name = "shop_id")
+	private Shop shop;
 
 	public Long getCategorySubId() {
 		return categorySub.getId();
@@ -159,6 +163,14 @@ public class Product implements Serializable {
 
 	public void setCreatedDate(LocalDateTime createdDate) {
 		this.createdDate = createdDate;
+	}
+
+	public Shop getShop() {
+		return shop;
+	}
+
+	public void setShop(Shop shop) {
+		this.shop = shop;
 	}
 
 }

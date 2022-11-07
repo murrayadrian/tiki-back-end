@@ -1,11 +1,13 @@
 package com.tikifake.entity;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -21,9 +23,7 @@ public class Shop {
 	@Column
 	private String name;
 	
-	@OneToOne
-	private Product product;
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -40,12 +40,4 @@ public class Shop {
 		this.name = name;
 	}
 
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-	
 }

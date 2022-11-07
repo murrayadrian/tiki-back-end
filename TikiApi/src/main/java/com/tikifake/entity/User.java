@@ -36,6 +36,10 @@ public class User {
 	@JoinColumn(name = "role_id", referencedColumnName = "role_id")
 	private Role role;
 
+	public Long getRoleId() {
+		return role.getId();
+	}
+	
 	public Long getId() {
 		return id;
 	}

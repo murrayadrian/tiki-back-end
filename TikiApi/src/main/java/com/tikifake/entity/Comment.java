@@ -1,5 +1,6 @@
 package com.tikifake.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,6 +19,9 @@ public class Comment {
 	@SequenceGenerator(name = "seq_comment", allocationSize = 1, initialValue = 1)
 	private Long id;
 	
+	@Column(name ="comment", columnDefinition = "text")
+	private String comment;
+	
 	@ManyToOne
 	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
 	private User user;
@@ -25,13 +29,33 @@ public class Comment {
 	@ManyToOne
 	@JoinColumn(name = "product_id", referencedColumnName = "product_id")
 	private Product product;
+	
+	
+	public String getNameUser() {
+		return user.getName();
+	}
 
+	public double getAvgStar() {
+		return product.getAvgStar();
+	}
+	public Long getProductId() {
+		return product.getId();
+	}
+	
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 	public User getUser() {
