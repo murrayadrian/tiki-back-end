@@ -32,7 +32,7 @@ public class ProductAddition {
 		this.price = product.getPrice();
 		this.brand = product.getBrand();
 //		this.madeBy = product.getMadeBy();
-		this.createDate = product.getCreateDate();
+//		this.createDate = product.getCreateDate();
 		this.categorySubId = product.getCategorySub().getId();
 	}
 

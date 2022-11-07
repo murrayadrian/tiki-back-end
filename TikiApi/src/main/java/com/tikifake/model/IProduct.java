@@ -1,6 +1,9 @@
 package com.tikifake.model;
 
+import java.time.LocalDateTime;
+
 public interface IProduct {
+	
 	public Long getId();
 
 	public String getName();
@@ -11,13 +14,11 @@ public interface IProduct {
 	
 	public String getImage();
 	
-	public String getModel();
-	
 	public String getBrand();
 	
-	public String getOrigin();
+	public String getMadeIn();
 	
-	public String getMadeBy();
+	public LocalDateTime getCreatedDate();
 
-	public Long getCategoryModelId();
+	public Long getCategorySubId();
 }

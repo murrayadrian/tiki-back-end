@@ -1,7 +1,7 @@
 package com.tikifake.entity;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,7 +36,7 @@ public class Product implements Serializable {
 	@Column(name = "price")
 	private double price;
 
-	@Column(name = "image")
+	@Column(name = "image", columnDefinition = "text")
 	private String image;
 
 	@Column(name = "brand")
@@ -48,14 +48,14 @@ public class Product implements Serializable {
 	@Column(name = "weight")
 	private double weight;
 
-	@Column(name = "create_date")
-	private LocalDate createDate;
-
 	@Column(name = "number_of_rating")
 	private int numberOfRating;
 
 	@Column(name = "avg_star")
 	private double avgStar;
+
+	@Column(name = "create_date")
+	private LocalDateTime createdDate;
 
 	@ManyToOne
 	@JoinColumn(name = "category_sub_id")
@@ -129,14 +129,6 @@ public class Product implements Serializable {
 		this.weight = weight;
 	}
 
-	public LocalDate getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(LocalDate createDate) {
-		this.createDate = createDate;
-	}
-
 	public int getNumberOfRating() {
 		return numberOfRating;
 	}
@@ -159,6 +151,14 @@ public class Product implements Serializable {
 
 	public void setCategorySub(CategorySub categorySub) {
 		this.categorySub = categorySub;
+	}
+
+	public LocalDateTime getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(LocalDateTime createdDate) {
+		this.createdDate = createdDate;
 	}
 
 }

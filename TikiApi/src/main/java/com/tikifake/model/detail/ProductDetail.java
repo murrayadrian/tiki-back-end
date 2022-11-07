@@ -31,7 +31,7 @@ public class ProductDetail {
 		this.image = product.getImage();
 		this.price = product.getPrice();
 		this.brand = product.getBrand();
-		this.createDate = product.getCreateDate();
+//		this.createDate = product.getCreateDate();
 //		this.madeBy = product.getMadeBy();
 //		this.categoryId = product.getCategory().getId();
 	}

@@ -1,6 +1,8 @@
 package com.tikifake.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,9 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tikifake.model.response.ProductAddition;
 import com.tikifake.model.IProduct;
 import com.tikifake.model.creator.ProductCreator;
+import com.tikifake.model.response.ProductResponse;
+import com.tikifake.model.update.ProductUpdate;
 import com.tikifake.service.ProductService;
 
 @RestController
@@ -32,6 +35,7 @@ public class ProductController {
 		return ResponseEntity.ok().body(product);
 	}
 	
+	
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	public ResponseEntity<Object> getAll() {
 		List<IProduct> products = productService.getAll();
@@ -41,9 +45,44 @@ public class ProductController {
 		return ResponseEntity.ok().body(products);
 	}
 	
+	
+	@RequestMapping(value = "/getByCategorySubId/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Object> getByCategorySubId(@PathVariable("id") Long id) {
+		List<IProduct> response = productService.getByCategorySubId(id);
+		return ResponseEntity.ok().body(response);
+		
+	}
+	
+	
+	@RequestMapping(value = "/getByCategoryId/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Object> getByCategoryId(@PathVariable("id") Long id) {
+		Map<String,List<IProduct>> response = productService.getByCategoryId(id);
+		return ResponseEntity.ok().body(response);	
+	}
+	
+	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public ResponseEntity<Object> addProduct(@RequestBody ProductCreator productCreator) {
-		ProductAddition product = productService.save(productCreator);
-		return ResponseEntity.ok().body(product);
+		ProductResponse productResponse = productService.save(productCreator);
+		return ResponseEntity.ok().body(productResponse);
+	}
+	
+	
+	@RequestMapping(value = "/addList", method = RequestMethod.POST)
+	public ResponseEntity<Object> addProductList(@RequestBody List<ProductCreator> productCreators) {
+		List<ProductResponse> response = new ArrayList<>();
+		for(ProductCreator productCreator : productCreators) {
+			ProductResponse productResponse = productService.save(productCreator);
+			response.add(productResponse);
+		}
+		return ResponseEntity.ok().body(response);
+		
+	}
+	
+	
+	@RequestMapping(value="/update",method = RequestMethod.PUT)
+	public ResponseEntity<Object> updateProduct(@RequestBody ProductUpdate productUpdate) {
+		productService.update(productUpdate);
+		return ResponseEntity.status(HttpStatus.OK).body("update successfully");
 	}
 }
