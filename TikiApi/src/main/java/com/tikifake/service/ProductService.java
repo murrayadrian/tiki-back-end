@@ -3,9 +3,9 @@ package com.tikifake.service;
 import java.util.List;
 
 import com.tikifake.entity.Product;
-import com.tikifake.model.ProductCreator;
 import com.tikifake.model.response.ProductAddition;
 import com.tikifake.model.IProduct;
+import com.tikifake.model.creator.ProductCreator;
 
 
 public interface ProductService {

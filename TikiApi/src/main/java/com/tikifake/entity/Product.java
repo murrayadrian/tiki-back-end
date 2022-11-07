@@ -24,6 +24,7 @@ public class Product implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_product")
 	@SequenceGenerator(name = "seq_product", allocationSize = 1, initialValue = 1)
+	@Column(name = "product_id")
 	private Long id;
 
 	@Column(name = "name")
@@ -40,13 +41,22 @@ public class Product implements Serializable {
 
 	@Column(name = "brand")
 	private String brand;
-	
-	@Column(name = "made_by")
-	private String madeBy;
+
+	@Column(name = "made_in")
+	private String madeIn;
+
+	@Column(name = "weight")
+	private double weight;
 
 	@Column(name = "create_date")
 	private LocalDate createDate;
-	
+
+	@Column(name = "number_of_rating")
+	private int numberOfRating;
+
+	@Column(name = "avg_star")
+	private double avgStar;
+
 	@ManyToOne
 	@JoinColumn(name = "category_sub_id")
 	private CategorySub categorySub;
@@ -103,20 +113,20 @@ public class Product implements Serializable {
 		this.brand = brand;
 	}
 
-	public String getMadeBy() {
-		return madeBy;
+	public String getMadeIn() {
+		return madeIn;
 	}
 
-	public void setMadeBy(String madeBy) {
-		this.madeBy = madeBy;
+	public void setMadeIn(String madeIn) {
+		this.madeIn = madeIn;
 	}
 
-	public CategorySub getCategorySub() {
-		return categorySub;
+	public double getWeight() {
+		return weight;
 	}
 
-	public void setCategorySub(CategorySub categorySub) {
-		this.categorySub = categorySub;
+	public void setWeight(double weight) {
+		this.weight = weight;
 	}
 
 	public LocalDate getCreateDate() {
@@ -125,6 +135,30 @@ public class Product implements Serializable {
 
 	public void setCreateDate(LocalDate createDate) {
 		this.createDate = createDate;
+	}
+
+	public int getNumberOfRating() {
+		return numberOfRating;
+	}
+
+	public void setNumberOfRating(int numberOfRating) {
+		this.numberOfRating = numberOfRating;
+	}
+
+	public double getAvgStar() {
+		return avgStar;
+	}
+
+	public void setAvgStar(double avgStar) {
+		this.avgStar = avgStar;
+	}
+
+	public CategorySub getCategorySub() {
+		return categorySub;
+	}
+
+	public void setCategorySub(CategorySub categorySub) {
+		this.categorySub = categorySub;
 	}
 
 }

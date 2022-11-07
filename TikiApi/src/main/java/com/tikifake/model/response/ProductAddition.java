@@ -31,7 +31,7 @@ public class ProductAddition {
 		this.image = product.getImage();
 		this.price = product.getPrice();
 		this.brand = product.getBrand();
-		this.madeBy = product.getMadeBy();
+//		this.madeBy = product.getMadeBy();
 		this.createDate = product.getCreateDate();
 		this.categorySubId = product.getCategorySub().getId();
 	}

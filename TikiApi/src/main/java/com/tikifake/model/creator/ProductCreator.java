@@ -1,4 +1,4 @@
-package com.tikifake.model;
+package com.tikifake.model.creator;
 
 import java.time.LocalDate;
 
@@ -32,7 +32,7 @@ public class ProductCreator {
 		product.setBrand(this.brand);
 		product.setImage(this.image);
 		product.setCreateDate(this.createDate);
-		product.setMadeBy(this.madeBy);
+//		product.setMadeBy(this.madeBy);
 		return product;
 	}
 

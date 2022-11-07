@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.tikifake.entity.CategorySub;
 import com.tikifake.entity.Product;
 import com.tikifake.model.IProduct;
-import com.tikifake.model.ProductCreator;
+import com.tikifake.model.creator.ProductCreator;
 import com.tikifake.model.response.ProductAddition;
 import com.tikifake.repositoty.CategorySubRepository;
 import com.tikifake.repositoty.ProductRepository;
