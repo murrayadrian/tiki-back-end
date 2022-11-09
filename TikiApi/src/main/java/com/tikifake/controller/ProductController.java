@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tikifake.model.IProduct;
-import com.tikifake.model.creator.ProductCreator;
-import com.tikifake.model.response.ProductResponse;
-import com.tikifake.model.update.ProductUpdate;
+import com.tikifake.model.request.creator.ProductCreator;
+import com.tikifake.model.request.update.ProductUpdate;
+import com.tikifake.model.response.creator.ProductResponse;
+import com.tikifake.model.response.detail.IProductDetail;
 import com.tikifake.service.ProductService;
 
 @RestController
@@ -28,7 +28,7 @@ public class ProductController {
 	
 	@RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Object> getById(@PathVariable(value = "id") Long productId) {
-		IProduct product = productService.getDetailById(productId);
+		IProductDetail product = productService.getDetailById(productId);
 		if (product == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product Not Found");
 		}
@@ -38,7 +38,7 @@ public class ProductController {
 	
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	public ResponseEntity<Object> getAll() {
-		List<IProduct> products = productService.getAll();
+		List<IProductDetail> products = productService.getAll();
 		if (products == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fail");
 		}
@@ -48,7 +48,7 @@ public class ProductController {
 	
 	@RequestMapping(value = "/getByCategorySubId/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Object> getByCategorySubId(@PathVariable("id") Long id) {
-		List<IProduct> response = productService.getByCategorySubId(id);
+		List<IProductDetail> response = productService.getByCategorySubId(id);
 		return ResponseEntity.ok().body(response);
 		
 	}
@@ -56,7 +56,7 @@ public class ProductController {
 	
 	@RequestMapping(value = "/getByCategoryId/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Object> getByCategoryId(@PathVariable("id") Long id) {
-		Map<String,List<IProduct>> response = productService.getByCategoryId(id);
+		Map<String,List<IProductDetail>> response = productService.getByCategoryId(id);
 		return ResponseEntity.ok().body(response);	
 	}
 	

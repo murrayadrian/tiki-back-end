@@ -1,4 +1,4 @@
-package com.tikifake.model.update;
+package com.tikifake.model.request.update;
 
 import com.tikifake.entity.Category;
 

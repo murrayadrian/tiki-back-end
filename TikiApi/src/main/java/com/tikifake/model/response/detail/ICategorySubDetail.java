@@ -1,6 +1,6 @@
-package com.tikifake.model;
+package com.tikifake.model.response.detail;
 
-public interface ICategorySub {
+public interface ICategorySubDetail {
 	
 	public Long getId();
 	

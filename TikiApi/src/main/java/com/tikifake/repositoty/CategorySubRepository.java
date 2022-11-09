@@ -6,15 +6,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.tikifake.entity.CategorySub;
-import com.tikifake.model.ICategorySub;
+import com.tikifake.model.response.detail.ICategorySubDetail;
 
 public interface CategorySubRepository extends JpaRepository<CategorySub, Long>{
 	@Query("select t from CategorySub t")
-	public List<ICategorySub> findAllDTO();
+	public List<ICategorySubDetail> findAllDTO();
 
 	@Query("select t from CategorySub t where t.id= ?1")
-	public ICategorySub findByIdDTO(Long id);
+	public ICategorySubDetail findByIdDTO(Long id);
 	
 	@Query("select c from CategorySub c JOIN FETCH c.category WHERE c.category.id = ?1")
-	public List<ICategorySub> findByCategoryId(Long id);
+	public List<ICategorySubDetail> findByCategoryId(Long id);
 }

@@ -1,6 +1,6 @@
-package com.tikifake.model;
+package com.tikifake.model.response.detail;
 
-public interface IUser {
+public interface IUserDetail {
 
 	public Long getId();
 	

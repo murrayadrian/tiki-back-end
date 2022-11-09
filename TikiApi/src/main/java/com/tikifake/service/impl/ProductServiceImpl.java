@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 
 import com.tikifake.entity.CategorySub;
 import com.tikifake.entity.Product;
-import com.tikifake.model.ICategorySub;
-import com.tikifake.model.IProduct;
-import com.tikifake.model.creator.ProductCreator;
-import com.tikifake.model.response.ProductResponse;
-import com.tikifake.model.update.ProductUpdate;
+import com.tikifake.model.request.creator.ProductCreator;
+import com.tikifake.model.request.update.ProductUpdate;
+import com.tikifake.model.response.creator.ProductResponse;
+import com.tikifake.model.response.detail.ICategorySubDetail;
+import com.tikifake.model.response.detail.IProductDetail;
 import com.tikifake.repositoty.CategorySubRepository;
 import com.tikifake.repositoty.ProductRepository;
 import com.tikifake.service.ProductService;
@@ -30,26 +30,26 @@ public class ProductServiceImpl implements ProductService {
 	private CategorySubRepository categorySubRepository;
 
 	@Override
-	public IProduct getDetailById(Long productId) {
+	public IProductDetail getDetailById(Long productId) {
 		return productRepository.findByIdDTO(productId);
 	}
 
 	@Override
-	public List<IProduct> getAll() {
+	public List<IProductDetail> getAll() {
 		return productRepository.findAllDTO();
 	}
 
 	@Override
-	public List<IProduct> getByCategorySubId(Long id) {
+	public List<IProductDetail> getByCategorySubId(Long id) {
 		return productRepository.findByCategorySubId(id);
 	}
 
 	@Override
-	public Map<String,List<IProduct>> getByCategoryId(Long id) {
+	public Map<String,List<IProductDetail>> getByCategoryId(Long id) {
 		
-		List<ICategorySub> iCategorySubs = categorySubRepository.findByCategoryId(id);
-		List<IProduct> iProductList = new ArrayList<>();
-		Map<String, List<IProduct>> iProductMap = new HashMap<>();
+		List<ICategorySubDetail> iCategorySubs = categorySubRepository.findByCategoryId(id);
+		List<IProductDetail> iProductList = new ArrayList<>();
+		Map<String, List<IProductDetail>> iProductMap = new HashMap<>();
 		
 		for(int i = 0; i < iCategorySubs.size(); i++) {
 			String categorySubName = iCategorySubs.get(i).getName();

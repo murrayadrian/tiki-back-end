@@ -1,8 +1,8 @@
-package com.tikifake.model;
+package com.tikifake.model.response.detail;
 
 import java.time.LocalDateTime;
 
-public interface IProduct {
+public interface IProductDetail {
 	
 	public Long getId();
 

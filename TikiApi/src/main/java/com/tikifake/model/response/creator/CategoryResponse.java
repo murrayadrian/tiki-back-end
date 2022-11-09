@@ -1,4 +1,4 @@
-package com.tikifake.model.response;
+package com.tikifake.model.response.creator;
 
 import com.tikifake.entity.Category;
 

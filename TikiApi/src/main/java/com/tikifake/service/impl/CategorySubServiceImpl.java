@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.tikifake.entity.Category;
 import com.tikifake.entity.CategorySub;
-import com.tikifake.model.ICategorySub;
-import com.tikifake.model.creator.CategorySubCreator;
-import com.tikifake.model.response.CategorySubResponse;
-import com.tikifake.model.update.CategorySubUpdate;
+import com.tikifake.model.request.creator.CategorySubCreator;
+import com.tikifake.model.request.update.CategorySubUpdate;
+import com.tikifake.model.response.creator.CategorySubResponse;
+import com.tikifake.model.response.detail.ICategorySubDetail;
 import com.tikifake.repositoty.CategoryRepository;
 import com.tikifake.repositoty.CategorySubRepository;
 import com.tikifake.service.CategorySubService;
@@ -25,16 +25,16 @@ public class CategorySubServiceImpl implements CategorySubService{
 	private CategoryRepository categoryRepository;
 	
 	@Override
-	public ICategorySub getDetailById(Long id) {
+	public ICategorySubDetail getDetailById(Long id) {
 		return categorySubRepository.findByIdDTO(id);
 	}
 
 	@Override
-	public List<ICategorySub> getAll() {
+	public List<ICategorySubDetail> getAll() {
 		return categorySubRepository.findAllDTO();
 	}
 	@Override
-	public List<ICategorySub> getByCategoryId(Long id) {
+	public List<ICategorySubDetail> getByCategoryId(Long id) {
 		return categorySubRepository.findByCategoryId(id);
 	}
 

@@ -2,16 +2,16 @@ package com.tikifake.service;
 
 import java.util.List;
 
-import com.tikifake.model.ICategory;
-import com.tikifake.model.creator.CategoryCreator;
-import com.tikifake.model.response.CategoryResponse;
-import com.tikifake.model.update.CategoryUpdate;
+import com.tikifake.model.request.creator.CategoryCreator;
+import com.tikifake.model.request.update.CategoryUpdate;
+import com.tikifake.model.response.creator.CategoryResponse;
+import com.tikifake.model.response.detail.ICategoryDetail;
 
 public interface CategoryService {
 
-	public ICategory getDetailById(Long categoryId);
+	public ICategoryDetail getDetailById(Long categoryId);
 
-	public List<ICategory> getAll();
+	public List<ICategoryDetail> getAll();
 
 	public CategoryResponse save(CategoryCreator categoryCreator);
 

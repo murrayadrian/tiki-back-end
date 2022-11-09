@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tikifake.entity.Category;
-import com.tikifake.model.ICategory;
-import com.tikifake.model.creator.CategoryCreator;
-import com.tikifake.model.response.CategoryResponse;
-import com.tikifake.model.update.CategoryUpdate;
+import com.tikifake.model.request.creator.CategoryCreator;
+import com.tikifake.model.request.update.CategoryUpdate;
+import com.tikifake.model.response.creator.CategoryResponse;
+import com.tikifake.model.response.detail.ICategoryDetail;
 import com.tikifake.repositoty.CategoryRepository;
 import com.tikifake.service.CategoryService;
 
@@ -20,12 +20,12 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryRepository categoryRepository;
 	
 	@Override
-	public ICategory getDetailById(Long categoryId) {
+	public ICategoryDetail getDetailById(Long categoryId) {
 		return categoryRepository.findByIdDTO(categoryId);
 	}
 
 	@Override
-	public List<ICategory> getAll() {
+	public List<ICategoryDetail> getAll() {
 		return categoryRepository.findAllDTO();
 	}
 

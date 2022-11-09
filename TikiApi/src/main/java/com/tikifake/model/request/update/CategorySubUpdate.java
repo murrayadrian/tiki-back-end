@@ -1,35 +1,34 @@
-package com.tikifake.model.creator;
+package com.tikifake.model.request.update;
 
 import com.tikifake.entity.Category;
 import com.tikifake.entity.CategorySub;
 
-public class CategorySubCreator {
-
+public class CategorySubUpdate {
+	
+	private Long id;
+	
 	private String name;
 	
 	private Long categoryId;
 	
-	public CategorySub convertModelToEntity(Category category) {
+	
+	public CategorySub convertToEntity(Category category) {
 		CategorySub categorySub = new CategorySub();
-		categorySub.setName(this.name);
+		categorySub.setId(id);
+		categorySub.setName(name);
 		categorySub.setCategory(category);
 		return categorySub;
+	}
+	public Long getId() {
+		return id;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public Long getCategoryId() {
 		return categoryId;
-	}
-
-	public void setCategoryId(Long categoryId) {
-		this.categoryId = categoryId;
 	}
 	
 }

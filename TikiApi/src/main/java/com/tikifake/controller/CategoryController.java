@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tikifake.model.ICategory;
-import com.tikifake.model.creator.CategoryCreator;
-import com.tikifake.model.response.CategoryResponse;
-import com.tikifake.model.update.CategoryUpdate;
+import com.tikifake.model.request.creator.CategoryCreator;
+import com.tikifake.model.request.update.CategoryUpdate;
+import com.tikifake.model.response.creator.CategoryResponse;
+import com.tikifake.model.response.detail.ICategoryDetail;
 import com.tikifake.service.CategoryService;
 
 @RestController
@@ -27,7 +27,7 @@ public class CategoryController {
 
 	@RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Object> getById(@PathVariable(value = "id") Long categoryId) {
-		ICategory category = categoryService.getDetailById(categoryId);
+		ICategoryDetail category = categoryService.getDetailById(categoryId);
 		if (category == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Category Not Found");
 		}
@@ -36,7 +36,7 @@ public class CategoryController {
 
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	public ResponseEntity<Object> getAll() {
-		List<ICategory> categories = categoryService.getAll();
+		List<ICategoryDetail> categories = categoryService.getAll();
 		if (categories == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fail");
 		}

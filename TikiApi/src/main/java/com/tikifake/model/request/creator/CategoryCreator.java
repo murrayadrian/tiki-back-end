@@ -1,4 +1,4 @@
-package com.tikifake.model.creator;
+package com.tikifake.model.request.creator;
 
 import com.tikifake.entity.Category;
 
