@@ -10,7 +10,7 @@ import com.tikifake.model.request.creator.RoleCreator;
 import com.tikifake.model.request.update.RoleUpdate;
 import com.tikifake.model.response.creator.RoleResponse;
 import com.tikifake.model.response.detail.IRoleDetail;
-import com.tikifake.repositoty.RoleRepository;
+import com.tikifake.repository.RoleRepository;
 import com.tikifake.service.RoleService;
 
 @Service

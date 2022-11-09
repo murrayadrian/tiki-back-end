@@ -1,16 +1,18 @@
-package com.tikifake.repositoty;
+package com.tikifake.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.tikifake.entity.Product;
 import com.tikifake.model.response.detail.IProductDetail;
+import com.tikifake.model.response.list.IProductList;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 	@Query("select t from Product t")
-	public List<IProductDetail> findAllDTO();
+	public List<IProductList> findAllDTO(Pageable pageable);
 
 	@Query("select t from Product t where t.id= ?1")
 	public IProductDetail findByIdDTO(Long id);
