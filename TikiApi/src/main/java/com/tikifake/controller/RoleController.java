@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tikifake.model.request.creator.RoleCreator;
-import com.tikifake.model.request.update.RoleUpdate;
-import com.tikifake.model.response.creator.RoleResponse;
+import com.tikifake.model.request.creator.RoleCreatorRequest;
+import com.tikifake.model.request.update.RoleUpdateRequest;
+import com.tikifake.model.response.creator.RoleCreatorResponse;
 import com.tikifake.model.response.detail.IRoleDetail;
+import com.tikifake.model.response.list.IRoleList;
+import com.tikifake.model.response.update.RoleUpdateResponse;
 import com.tikifake.service.RoleService;
 
 @RestController
@@ -34,19 +36,19 @@ public class RoleController {
 
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	public ResponseEntity<Object> getAllRole() {
-		List<IRoleDetail> roles = roleService.getAllRole();
+		List<IRoleList> roles = roleService.getAllRole();
 		return ResponseEntity.ok().body(roles);
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public ResponseEntity<Object> addShop(@RequestBody RoleCreator roleCreator) {
-		RoleResponse roleResponse = roleService.save(roleCreator);
+	public ResponseEntity<Object> addRole(@RequestBody RoleCreatorRequest roleCreator) {
+		RoleCreatorResponse roleResponse = roleService.save(roleCreator);
 		return ResponseEntity.ok().body(roleResponse);
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.PUT)
-	public ResponseEntity<Object> update(@RequestBody RoleUpdate roleUpdate) {
-		RoleResponse roleResponse = roleService.update(roleUpdate);
+	public ResponseEntity<Object> update(@RequestBody RoleUpdateRequest roleUpdate) {
+		RoleUpdateResponse roleResponse = roleService.update(roleUpdate);
 		return ResponseEntity.ok().body(roleResponse);
 	}
 }

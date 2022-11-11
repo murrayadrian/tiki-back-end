@@ -16,6 +16,7 @@ import com.tikifake.model.request.creator.CategoryCreator;
 import com.tikifake.model.request.update.CategoryUpdate;
 import com.tikifake.model.response.creator.CategoryResponse;
 import com.tikifake.model.response.detail.ICategoryDetail;
+import com.tikifake.model.response.list.ICategoryList;
 import com.tikifake.service.CategoryService;
 
 @RestController
@@ -35,8 +36,8 @@ public class CategoryController {
 	}
 
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
-	public ResponseEntity<Object> getAll() {
-		List<ICategoryDetail> categories = categoryService.getAll();
+	public ResponseEntity<Object> getAll(int page) {
+		List<ICategoryList> categories = categoryService.getAll(page);
 		if (categories == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fail");
 		}
@@ -75,3 +76,4 @@ public class CategoryController {
 		return ResponseEntity.ok().body(categoryResponse);	
 	}
 }
+

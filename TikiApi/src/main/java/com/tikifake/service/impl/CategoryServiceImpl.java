@@ -3,6 +3,9 @@ package com.tikifake.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.tikifake.entity.Category;
@@ -10,11 +13,16 @@ import com.tikifake.model.request.creator.CategoryCreator;
 import com.tikifake.model.request.update.CategoryUpdate;
 import com.tikifake.model.response.creator.CategoryResponse;
 import com.tikifake.model.response.detail.ICategoryDetail;
+<<<<<<< HEAD
+=======
+import com.tikifake.model.response.list.ICategoryList;
+>>>>>>> master
 import com.tikifake.repository.CategoryRepository;
 import com.tikifake.service.CategoryService;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
+	private final int SIZE = 5;
 
 	@Autowired
 	private CategoryRepository categoryRepository;
@@ -25,8 +33,10 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public List<ICategoryDetail> getAll() {
-		return categoryRepository.findAllDTO();
+	public List<ICategoryList> getAll(int page) {
+		Pageable pageable = PageRequest.of(page, SIZE, Sort.by("name").descending());
+		List<ICategoryList> findAllCategory = categoryRepository.findAllCategory(pageable);
+		return findAllCategory;
 	}
 
 	@Override

@@ -1,10 +1,8 @@
-package com.tikifake.model.request.update;
+package com.tikifake.model.response.creator;
 
-import com.tikifake.entity.Role;
 import com.tikifake.entity.User;
 
-public class UserUpdate {
-	
+public class UserCreatorResponse {
 	private Long id;
 
 	private String name;
@@ -16,16 +14,15 @@ public class UserUpdate {
 	private String email;
 
 	private Long roleId;
-	
-	public User convertToEntity(Role role) {
-		User user = new User();
-		user.setId(id);
-		user.setName(name);
-		user.setAddress(address);
-		user.setPhone(phone);
-		user.setEmail(email);
-		user.setRole(role);
-		return user;
+
+	public UserCreatorResponse convertEntityToModel(User user) {
+		this.id = user.getId();
+		this.name = user.getName();
+		this.address = user.getAddress();
+		this.phone = user.getPhone();
+		this.email = user.getEmail();
+		this.roleId = user.getRole().getId();
+		return this;
 	}
 
 	public Long getId() {

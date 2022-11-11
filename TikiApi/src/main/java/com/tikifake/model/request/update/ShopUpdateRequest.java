@@ -1,19 +1,20 @@
 package com.tikifake.model.request.update;
 
-import com.tikifake.entity.Role;
+import com.tikifake.entity.Shop;
 
-public class RoleUpdate {
-	private Long id;
+public class ShopUpdateRequest {
 	
-	private String name;
-	
-	public Role convertToEntity() {
-		Role role = new Role();
-		role.setId(id);
-		role.setName(name);
-		return role;
+	public Long id;
+
+	public String name;
+
+	public Shop convertModelToEntity() {
+		Shop shop = new Shop();
+		shop.setId(id);
+		shop.setName(name);
+		return shop;
 	}
-
+	
 	public Long getId() {
 		return id;
 	}

@@ -1,5 +1,9 @@
 package com.tikifake.model.request.creator;
 
+import com.tikifake.entity.Category;
+import com.tikifake.entity.CategorySub;
+import com.tikifake.entity.Product;
+
 public class ProductCreator {
 
 	private String name;
@@ -16,7 +20,17 @@ public class ProductCreator {
 
 	private Long categorySubId;
 
-
+	public Product convertDTOToEntity(CategorySub categorySub) {
+		Product product = new Product();
+		product.setName(this.name);
+		product.setDescription(this.description);
+		product.setPrice(this.price);
+		product.setImage(this.image);
+		product.setBrand(this.brand);
+		product.setMadeIn(this.madeIn);
+		product.setCategorySub(categorySub);
+		return product;
+	}
 	public String getName() {
 		return name;
 	}

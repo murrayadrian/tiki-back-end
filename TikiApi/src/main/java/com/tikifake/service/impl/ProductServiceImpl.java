@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.tikifake.entity.CategorySub;
@@ -16,12 +19,17 @@ import com.tikifake.model.request.update.ProductUpdate;
 import com.tikifake.model.response.creator.ProductResponse;
 import com.tikifake.model.response.detail.ICategorySubDetail;
 import com.tikifake.model.response.detail.IProductDetail;
+<<<<<<< HEAD
+=======
+import com.tikifake.model.response.list.IProductList;
+>>>>>>> master
 import com.tikifake.repository.CategorySubRepository;
 import com.tikifake.repository.ProductRepository;
 import com.tikifake.service.ProductService;
 
 @Service
 public class ProductServiceImpl implements ProductService {
+	private final int SIZE =5;
 
 	@Autowired
 	private ProductRepository productRepository;
@@ -34,9 +42,12 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.findByIdDTO(productId);
 	}
 
+
 	@Override
-	public List<IProductDetail> getAll() {
-		return productRepository.findAllDTO();
+	public List<IProductList> getAll(int page) {
+		Pageable pageable = PageRequest.of(page, SIZE, Sort.by("name").descending());
+		List<IProductList> findAllCategory = productRepository.findAllDTO(pageable);
+		return findAllCategory;
 	}
 
 	@Override
@@ -62,14 +73,14 @@ public class ProductServiceImpl implements ProductService {
 		return iProductMap;
 	}
 
-//	@Override
-//	public ProductResponse save(ProductCreator productCreator) {
-//		CategorySub categoryModel = categorySubRepository.findById(productCreator.getCategorySubId()).get();
-////		Product product = productCreator.convertDTOToEntity(categoryModel);
-//		Product result = productRepository.save(product);
-//		ProductResponse productAdd = new ProductResponse(result);
-//		return productAdd;
-//	}
+	@Override
+	public ProductResponse save(ProductCreator productCreator) {
+		CategorySub categoryModel = categorySubRepository.findById(productCreator.getCategorySubId()).get();
+		Product product = productCreator.convertDTOToEntity(categoryModel);
+		Product result = productRepository.save(product);
+		ProductResponse productAdd = new ProductResponse(result);
+		return productAdd;
+	}
 
 	@Override
 	public void update(ProductUpdate productUpdate) {
@@ -81,10 +92,6 @@ public class ProductServiceImpl implements ProductService {
 		productRepository.save(product);
 	}
 
-	@Override
-	public ProductResponse save(ProductCreator productcreator) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 }

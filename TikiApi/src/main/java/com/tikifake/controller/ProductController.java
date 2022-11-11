@@ -17,6 +17,7 @@ import com.tikifake.model.request.creator.ProductCreator;
 import com.tikifake.model.request.update.ProductUpdate;
 import com.tikifake.model.response.creator.ProductResponse;
 import com.tikifake.model.response.detail.IProductDetail;
+import com.tikifake.model.response.list.IProductList;
 import com.tikifake.service.ProductService;
 
 @RestController
@@ -37,8 +38,8 @@ public class ProductController {
 	
 	
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
-	public ResponseEntity<Object> getAll() {
-		List<IProductDetail> products = productService.getAll();
+	public ResponseEntity<Object> getAll(int page) {
+		List<IProductList> products = productService.getAll(page);
 		if (products == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fail");
 		}
