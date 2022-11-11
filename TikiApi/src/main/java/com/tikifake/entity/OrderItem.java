@@ -9,24 +9,25 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
-import com.tikifake.entity.embeddedid.CartItemId;
+import com.tikifake.entity.embeddedid.OrderItemId;
 
 @Entity
-@Table(name = "cart_item")
-public class CartItem {
-
+@Table(name="order_item")
+public class OrderItem {
+	
 	@EmbeddedId
-	public CartItemId id = new CartItemId();
-
+	public OrderItemId id = new OrderItemId();
+	
+	@MapsId("orderId")
+	@JoinColumns({ @JoinColumn(name = "order_id", referencedColumnName = "order_id") })
+	@ManyToOne
+	private Order order;
+	
 	@MapsId("productId")
 	@JoinColumns({ @JoinColumn(name = "product_id", referencedColumnName = "product_id") })
 	@ManyToOne
 	private Product product;
-
-	@MapsId("cartId")
-	@JoinColumns({ @JoinColumn(name = "cart_id", referencedColumnName = "cart_id") })
-	@ManyToOne
-	private Cart cart;
+	
 	
 	@Column(name = "quantity")
 	private int quantity;
@@ -37,8 +38,6 @@ public class CartItem {
 	@Column(name = "total_weight")
 	private double totalWeight;
 	
-	@Column(name = "checked")
-	private boolean isCheck;
 	
 	public Product getProduct() {
 		return product;
@@ -56,7 +55,6 @@ public class CartItem {
 		this.quantity = quantity;
 	}
 
-
 	public double getTotalPrice() {
 		return totalPrice;
 	}
@@ -72,20 +70,5 @@ public class CartItem {
 	public void setTotalWeight(double totalWeight) {
 		this.totalWeight = totalWeight;
 	}
-
-	public Cart getCart() {
-		return cart;
-	}
-
-	public void setCart(Cart cart) {
-		this.cart = cart;
-	}
-
-	public boolean isCheck() {
-		return isCheck;
-	}
-
-	public void setCheck(boolean isCheck) {
-		this.isCheck = isCheck;
-	}
+	
 }
