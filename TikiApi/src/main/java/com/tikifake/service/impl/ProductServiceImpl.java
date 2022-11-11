@@ -19,7 +19,6 @@ import com.tikifake.model.request.update.ProductUpdate;
 import com.tikifake.model.response.creator.ProductResponse;
 import com.tikifake.model.response.detail.ICategorySubDetail;
 import com.tikifake.model.response.detail.IProductDetail;
-import com.tikifake.model.response.list.ICategoryList;
 import com.tikifake.model.response.list.IProductList;
 import com.tikifake.repository.CategorySubRepository;
 import com.tikifake.repository.ProductRepository;

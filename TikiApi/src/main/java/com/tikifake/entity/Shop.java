@@ -14,7 +14,7 @@ public class Shop {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_shop")
-	@SequenceGenerator(name = "seq_shop", allocationSize = 1, initialValue = 1)
+	@SequenceGenerator(name = "seq_shop", allocationSize = 1)
 	private Long id;
 	
 	@Column

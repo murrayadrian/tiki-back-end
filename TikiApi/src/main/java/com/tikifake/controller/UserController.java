@@ -11,15 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tikifake.model.request.creator.ShopCreator;
-import com.tikifake.model.request.creator.UserCreator;
-import com.tikifake.model.request.update.ShopUpdate;
-import com.tikifake.model.request.update.UserUpdate;
-import com.tikifake.model.response.creator.ShopResponse;
-import com.tikifake.model.response.creator.UserResponse;
-import com.tikifake.model.response.detail.IShopDetail;
+import com.tikifake.model.request.creator.UserCreatorRequest;
+import com.tikifake.model.request.update.UserUpdateRequest;
+import com.tikifake.model.response.creator.UserCreatorResponse;
 import com.tikifake.model.response.detail.IUserDetail;
-import com.tikifake.service.ShopService;
+import com.tikifake.model.response.list.IUserList;
+import com.tikifake.model.response.update.UserUpdateResponse;
 import com.tikifake.service.UserService;
 
 
@@ -40,20 +37,20 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
-	public ResponseEntity<Object> getAllShop() {
-		List<IUserDetail> users = userService.getAllUser();
+	public ResponseEntity<Object> getAllUser() {
+		List<IUserList> users = userService.getAllUser();
 		return ResponseEntity.ok().body(users);
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public ResponseEntity<Object> addShop(@RequestBody UserCreator userCreator) {
-		UserResponse userResponse = userService.save(userCreator);
+	public ResponseEntity<Object> addUser(@RequestBody UserCreatorRequest userCreator) {
+		UserCreatorResponse userResponse = userService.save(userCreator);
 		return ResponseEntity.ok().body(userResponse);
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.PUT)
-	public ResponseEntity<Object> update(@RequestBody UserUpdate userUpdate) {
-		UserResponse userResponse = userService.update(userUpdate);
+	public ResponseEntity<Object> update(@RequestBody UserUpdateRequest userUpdate) {
+		UserUpdateResponse userResponse = userService.update(userUpdate);
 		return ResponseEntity.ok().body(userResponse);
 	}
 }
