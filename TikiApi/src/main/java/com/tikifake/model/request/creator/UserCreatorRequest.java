@@ -1,36 +1,28 @@
-package com.tikifake.model.response.creator;
+package com.tikifake.model.request.creator;
 
+import com.tikifake.entity.Role;
 import com.tikifake.entity.User;
 
-public class UserResponse {
-	private Long id;
+public class UserCreatorRequest {
 
 	private String name;
-
+	
 	private String address;
-
+	
 	private String phone;
-
+	
 	private String email;
-
+	
 	private Long roleId;
-
-	public UserResponse convertEntityToModel(User user) {
-		this.id = user.getId();
-		this.name = user.getName();
-		this.address = user.getAddress();
-		this.phone = user.getPhone();
-		this.email = user.getEmail();
-		this.roleId = user.getRole().getId();
-		return this;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	
+	public User convertModelToEntity(Role role) {
+		User user = new User();
+		user.setName(this.name);
+		user.setAddress(this.address);
+		user.setPhone(this.phone);
+		user.setEmail(this.email);
+		user.setRole(role);
+		return user;
 	}
 
 	public String getName() {

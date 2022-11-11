@@ -1,14 +1,14 @@
-package com.tikifake.model.response.creator;
+package com.tikifake.model.response.update;
 
 import com.tikifake.entity.Shop;
 
-public class ShopResponse {
+public class ShopUpdateResponse {
 
 	public Long id;
 	
 	public String name;
 
-	public ShopResponse convertEntityToModel(Shop shop) {
+	public ShopUpdateResponse convertEntityToModel(Shop shop) {
 		this.id = shop.getId();
 		this.name = shop.getName();
 		return this;

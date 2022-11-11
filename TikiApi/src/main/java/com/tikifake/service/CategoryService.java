@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.tikifake.model.request.creator.CategoryCreator;
 import com.tikifake.model.request.update.CategoryUpdate;
-import com.tikifake.model.response.creator.CategoryResponse;
 import com.tikifake.model.response.detail.ICategoryDetail;
 
 public interface CategoryService {
@@ -13,7 +12,7 @@ public interface CategoryService {
 
 	public List<ICategoryDetail> getAll();
 
-	public CategoryResponse save(CategoryCreator categoryCreator);
+	public CategoryCreator save(CategoryCreator categoryCreator);
 
-	public CategoryResponse update(CategoryUpdate categoryUpdate);
+	public CategoryCreator update(CategoryUpdate categoryUpdate);
 }

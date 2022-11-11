@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tikifake.model.request.creator.ShopCreator;
-import com.tikifake.model.request.update.ShopUpdate;
-import com.tikifake.model.response.creator.ShopResponse;
+import com.tikifake.model.request.creator.ShopCreatorRequest;
+import com.tikifake.model.request.update.ShopUpdateRequest;
+import com.tikifake.model.response.creator.ShopCreatorResponse;
 import com.tikifake.model.response.detail.IShopDetail;
+import com.tikifake.model.response.list.IShopList;
+import com.tikifake.model.response.update.ShopUpdateResponse;
 import com.tikifake.service.ShopService;
 
 @RestController
@@ -35,19 +37,19 @@ public class ShopController {
 
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	public ResponseEntity<Object> getAllShop() {
-		List<IShopDetail> shops = shopService.getAll();
+		List<IShopList> shops = shopService.getAllShop();
 		return ResponseEntity.ok().body(shops);
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public ResponseEntity<Object> addShop(@RequestBody ShopCreator shopCreator) {
-		ShopResponse shopResponse = shopService.save(shopCreator);
+	public ResponseEntity<Object> addShop(@RequestBody ShopCreatorRequest shopCreator) {
+		ShopCreatorResponse shopResponse = shopService.save(shopCreator);
 		return ResponseEntity.ok().body(shopResponse);
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.PUT)
-	public ResponseEntity<Object> update(@RequestBody ShopUpdate shopUpdate) {
-		ShopResponse shopResponse = shopService.update(shopUpdate);
+	public ResponseEntity<Object> update(@RequestBody ShopUpdateRequest shopUpdate) {
+		ShopUpdateResponse shopResponse = shopService.update(shopUpdate);
 		return ResponseEntity.ok().body(shopResponse);
 	}
 }

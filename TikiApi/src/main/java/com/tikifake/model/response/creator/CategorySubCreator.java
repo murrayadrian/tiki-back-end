@@ -2,7 +2,7 @@ package com.tikifake.model.response.creator;
 
 import com.tikifake.entity.CategorySub;
 
-public class CategorySubResponse {
+public class CategorySubCreator {
 	
 	private Long id;
 	
@@ -10,7 +10,7 @@ public class CategorySubResponse {
 	
 	private Long categoryId;
 	
-	public CategorySubResponse convertEntityToResponse(CategorySub categorySub) {
+	public CategorySubCreator convertEntityToResponse(CategorySub categorySub) {
 		this.id = categorySub.getId();
 		this.name = categorySub.getName();
 		this.categoryId = categorySub.getCategory().getId();

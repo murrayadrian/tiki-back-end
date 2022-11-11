@@ -1,18 +1,17 @@
-package com.tikifake.model.request.update;
+package com.tikifake.model.response.creator;
 
 import com.tikifake.entity.Shop;
 
-public class ShopUpdate {
-	
-	public Long id;
+public class ShopCreatorResponse {
 
+	public Long id;
+	
 	public String name;
 
-	public Shop convertModelToEntity() {
-		Shop shop = new Shop();
-		shop.setId(id);
-		shop.setName(name);
-		return shop;
+	public ShopCreatorResponse convertEntityToModel(Shop shop) {
+		this.id = shop.getId();
+		this.name = shop.getName();
+		return this;
 	}
 	
 	public Long getId() {
@@ -30,4 +29,5 @@ public class ShopUpdate {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 }

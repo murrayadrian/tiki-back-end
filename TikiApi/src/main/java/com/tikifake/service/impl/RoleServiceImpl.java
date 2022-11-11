@@ -6,44 +6,54 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tikifake.entity.Role;
-import com.tikifake.model.request.creator.RoleCreator;
-import com.tikifake.model.request.update.RoleUpdate;
-import com.tikifake.model.response.creator.RoleResponse;
+import com.tikifake.model.request.creator.RoleCreatorRequest;
+import com.tikifake.model.request.update.RoleUpdateRequest;
+import com.tikifake.model.response.creator.RoleCreatorResponse;
 import com.tikifake.model.response.detail.IRoleDetail;
-import com.tikifake.repositoty.RoleRepository;
+import com.tikifake.model.response.exception.BadRequestException;
+import com.tikifake.model.response.list.IRoleList;
+import com.tikifake.model.response.update.RoleUpdateResponse;
+import com.tikifake.repository.RoleRepository;
 import com.tikifake.service.RoleService;
 
 @Service
 public class RoleServiceImpl implements RoleService {
 
-	
 	@Autowired
 	private RoleRepository roleRepository;
-	
+
 	@Override
 	public IRoleDetail getDetailById(Long roleId) {
 		return roleRepository.findByIdDTO(roleId);
 	}
 
 	@Override
-	public List<IRoleDetail> getAllRole() {
+	public List<IRoleList> getAllRole() {
 		return roleRepository.findAllDTO();
 	}
 
 	@Override
-	public RoleResponse save(RoleCreator roleCreator) {
-		Role role = roleCreator.convertModelToEntity();
-		Role result = roleRepository.save(role);
-		RoleResponse roleResponse = new RoleResponse().convertEntityToModel(result);
+	public RoleCreatorResponse save(RoleCreatorRequest roleCreator) {
+		if (roleRepository.existsByName(roleCreator.getName())) {
+			throw new BadRequestException("Role is already taken!");
+		}
+		Role roleRequest = roleCreator.convertModelToEntity();
+		Role result = roleRepository.save(roleRequest);
+		RoleCreatorResponse roleResponse = new RoleCreatorResponse().convertEntityToModel(result);
 		return roleResponse;
 	}
 
 	@Override
-	public RoleResponse update(RoleUpdate roleUpdate) {
+	public RoleUpdateResponse update(RoleUpdateRequest roleUpdate) {
+		boolean isExistRole = roleRepository.isExistRoleUpdate(roleUpdate.getId(), roleUpdate.getName());
+		if (isExistRole) {
+			throw new BadRequestException("Role is already taken!");
+		}
 		Role role = roleUpdate.convertToEntity();
 		Role result = roleRepository.save(role);
-		RoleResponse roleResponse = new RoleResponse().convertEntityToModel(result);
+		RoleUpdateResponse roleResponse = new RoleUpdateResponse().convertEntityToModel(result);
 		return roleResponse;
+
 	}
 
 }

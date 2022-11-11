@@ -7,12 +7,15 @@ import org.springframework.stereotype.Service;
 
 import com.tikifake.entity.Role;
 import com.tikifake.entity.User;
-import com.tikifake.model.request.creator.UserCreator;
-import com.tikifake.model.request.update.UserUpdate;
-import com.tikifake.model.response.creator.UserResponse;
+import com.tikifake.model.request.creator.UserCreatorRequest;
+import com.tikifake.model.request.update.UserUpdateRequest;
+import com.tikifake.model.response.creator.UserCreatorResponse;
 import com.tikifake.model.response.detail.IUserDetail;
-import com.tikifake.repositoty.RoleRepository;
-import com.tikifake.repositoty.UserRepository;
+import com.tikifake.model.response.exception.BadRequestException;
+import com.tikifake.model.response.list.IUserList;
+import com.tikifake.model.response.update.UserUpdateResponse;
+import com.tikifake.repository.RoleRepository;
+import com.tikifake.repository.UserRepository;
 import com.tikifake.service.UserService;
 
 @Service
@@ -30,25 +33,39 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public List<IUserDetail> getAllUser() {
+	public List<IUserList> getAllUser() {
 		return userRepository.findAllDTO();
 	}
 
 	@Override
-	public UserResponse save(UserCreator userCreator) {
+	public UserCreatorResponse save(UserCreatorRequest userCreator) {
+		if (userRepository.existsByEmail(userCreator.getEmail())) {
+			throw new BadRequestException("Email is already taken!");
+		}
+		if (userRepository.existsByPhone(userCreator.getPhone())) {
+			throw new BadRequestException("Phone is already taken!");
+		}
 		Role role = roleRepository.findById(userCreator.getRoleId()).get();
 		User user = userCreator.convertModelToEntity(role);
 		User result = userRepository.save(user);
-		UserResponse userResponse = new UserResponse().convertEntityToModel(result);
+		UserCreatorResponse userResponse = new UserCreatorResponse().convertEntityToModel(result);
 		return userResponse;
 	}
 
 	@Override
-	public UserResponse update(UserUpdate userUpdate) {
+	public UserUpdateResponse update(UserUpdateRequest userUpdate) {
+		boolean isExistEmail = userRepository.isExistEmail(userUpdate.getId(), userUpdate.getEmail());
+		if (isExistEmail) {
+			throw new BadRequestException("Email is already taken!");
+		}
+		boolean isExistPhone = userRepository.isExistPhone(userUpdate.getId(), userUpdate.getPhone());
+		if (isExistPhone) {
+			throw new BadRequestException("Phone is already taken!");
+		}
 		Role role = roleRepository.findById(userUpdate.getRoleId()).get();
 		User user = userUpdate.convertToEntity(role);
 		User result = userRepository.save(user);
-		UserResponse userResponse = new UserResponse().convertEntityToModel(result);
+		UserUpdateResponse userResponse = new UserUpdateResponse().convertEntityToModel(result);
 		return userResponse;
 	}
 

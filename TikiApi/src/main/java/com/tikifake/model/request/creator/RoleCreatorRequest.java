@@ -1,17 +1,17 @@
 package com.tikifake.model.request.creator;
 
-import com.tikifake.entity.Shop;
+import com.tikifake.entity.Role;
 
-public class ShopCreator {
-	
+public class RoleCreatorRequest {
+
 	private String name;
 
-	public Shop convertModelToEntity() {
-		Shop shop = new Shop();
-		shop.setName(this.name);
-		return shop;
+	public Role convertModelToEntity() {
+		Role role = new Role();
+		role.setName(this.name);
+		return role;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -19,5 +19,5 @@ public class ShopCreator {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 }
