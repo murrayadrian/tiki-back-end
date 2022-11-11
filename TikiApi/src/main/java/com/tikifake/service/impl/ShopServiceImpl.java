@@ -10,12 +10,11 @@ import com.tikifake.model.request.creator.ShopCreatorRequest;
 import com.tikifake.model.request.update.ShopUpdateRequest;
 import com.tikifake.model.response.creator.ShopCreatorResponse;
 import com.tikifake.model.response.detail.IShopDetail;
-<<<<<<< HEAD
-=======
+
 import com.tikifake.model.response.exception.BadRequestException;
 import com.tikifake.model.response.list.IShopList;
 import com.tikifake.model.response.update.ShopUpdateResponse;
->>>>>>> master
+
 import com.tikifake.repository.ShopRepository;
 import com.tikifake.service.ShopService;
 

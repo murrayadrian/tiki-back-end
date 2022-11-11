@@ -19,17 +19,16 @@ import com.tikifake.model.request.update.ProductUpdate;
 import com.tikifake.model.response.creator.ProductResponse;
 import com.tikifake.model.response.detail.ICategorySubDetail;
 import com.tikifake.model.response.detail.IProductDetail;
-<<<<<<< HEAD
-=======
+
 import com.tikifake.model.response.list.IProductList;
->>>>>>> master
+
 import com.tikifake.repository.CategorySubRepository;
 import com.tikifake.repository.ProductRepository;
 import com.tikifake.service.ProductService;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-	private final int SIZE =5;
+	private final int SIZE = 5;
 
 	@Autowired
 	private ProductRepository productRepository;
@@ -41,7 +40,6 @@ public class ProductServiceImpl implements ProductService {
 	public IProductDetail getDetailById(Long productId) {
 		return productRepository.findByIdDTO(productId);
 	}
-
 
 	@Override
 	public List<IProductList> getAll(int page) {
@@ -56,20 +54,20 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Map<String,List<IProductDetail>> getByCategoryId(Long id) {
-		
+	public Map<String, List<IProductDetail>> getByCategoryId(Long id) {
+
 		List<ICategorySubDetail> iCategorySubs = categorySubRepository.findByCategoryId(id);
 		List<IProductDetail> iProductList = new ArrayList<>();
 		Map<String, List<IProductDetail>> iProductMap = new HashMap<>();
-		
-		for(int i = 0; i < iCategorySubs.size(); i++) {
+
+		for (int i = 0; i < iCategorySubs.size(); i++) {
 			String categorySubName = iCategorySubs.get(i).getName();
 			Long categorySubId = iCategorySubs.get(i).getId();
-			
+
 			iProductList = productRepository.findByCategorySubId(categorySubId);
 			iProductMap.putIfAbsent(categorySubName, iProductList);
 		}
-		
+
 		return iProductMap;
 	}
 
@@ -91,7 +89,5 @@ public class ProductServiceImpl implements ProductService {
 		Product product = productUpdate.convertToEntity(categorySub, date);
 		productRepository.save(product);
 	}
-
-
 
 }

@@ -13,10 +13,8 @@ import com.tikifake.model.request.creator.CategoryCreator;
 import com.tikifake.model.request.update.CategoryUpdate;
 import com.tikifake.model.response.creator.CategoryResponse;
 import com.tikifake.model.response.detail.ICategoryDetail;
-<<<<<<< HEAD
-=======
 import com.tikifake.model.response.list.ICategoryList;
->>>>>>> master
+
 import com.tikifake.repository.CategoryRepository;
 import com.tikifake.service.CategoryService;
 
