@@ -10,7 +10,7 @@ import com.tikifake.model.request.creator.ShopCreator;
 import com.tikifake.model.request.update.ShopUpdate;
 import com.tikifake.model.response.creator.ShopResponse;
 import com.tikifake.model.response.detail.IShopDetail;
-import com.tikifake.repositoty.ShopRepository;
+import com.tikifake.repository.ShopRepository;
 import com.tikifake.service.ShopService;
 
 @Service

@@ -1,4 +1,4 @@
-package com.tikifake.repositoty;
+package com.tikifake.repository;
 
 import java.util.List;
 
