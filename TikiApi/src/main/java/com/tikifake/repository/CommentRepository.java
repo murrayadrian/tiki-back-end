@@ -15,5 +15,4 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 	
 	@Query("select c.user.id from Comment c where c.user.id = :id")
 	public ICommentList findCommentByUser(Long id);
-
 }
