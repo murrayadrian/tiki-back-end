@@ -11,8 +11,8 @@ import com.tikifake.model.request.creator.UserCreator;
 import com.tikifake.model.request.update.UserUpdate;
 import com.tikifake.model.response.creator.UserResponse;
 import com.tikifake.model.response.detail.IUserDetail;
-import com.tikifake.repositoty.RoleRepository;
-import com.tikifake.repositoty.UserRepository;
+import com.tikifake.repository.RoleRepository;
+import com.tikifake.repository.UserRepository;
 import com.tikifake.service.UserService;
 
 @Service
