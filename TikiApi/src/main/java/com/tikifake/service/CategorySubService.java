@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.tikifake.model.request.creator.CategorySubCreator;
 import com.tikifake.model.request.update.CategorySubUpdate;
+import com.tikifake.model.response.creator.CategorySubResponse;
 import com.tikifake.model.response.detail.ICategorySubDetail;
 import com.tikifake.model.response.list.ICategorySubList;
 
@@ -15,7 +16,7 @@ public interface CategorySubService {
 	
 	public List<ICategorySubDetail> getByCategoryId(Long id);
 	
-	public CategorySubCreator save(CategorySubCreator categorySubCreator);
+	public CategorySubResponse save(CategorySubCreator categorySubCreator);
 	
-	public CategorySubCreator update(CategorySubUpdate categorySubUpdate);
+	public CategorySubResponse update(CategorySubUpdate categorySubUpdate);
 }
