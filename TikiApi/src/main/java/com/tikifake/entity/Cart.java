@@ -1,6 +1,5 @@
 package com.tikifake.entity;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,6 +30,7 @@ public class Cart {
 	@Column(name = "total_tax")
 	private double totalTax;
 	
+
 	public Long getId() {
 		return id;
 	}

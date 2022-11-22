@@ -11,6 +11,7 @@ import com.tikifake.entity.Order;
 import com.tikifake.entity.OrderItem;
 import com.tikifake.entity.User;
 import com.tikifake.model.request.creator.OrderRequest;
+import com.tikifake.model.response.list.IOrderItem;
 import com.tikifake.repository.CartItemRepository;
 import com.tikifake.repository.CartRepository;
 import com.tikifake.repository.OrderItemRepository;
@@ -34,28 +35,38 @@ public class OrderServiceImpl implements OrderService {
 	
 	
 	@Override
-	public Order order(OrderRequest orderRequest) {
+	public List<IOrderItem> order(OrderRequest orderRequest) {
 		Long cartId = orderRequest.getCartId();
 		List<CartItem> items = cartItemRepository.findAllCheckedItemInCart(cartId);
 		User user = cartRepository.findById(cartId).get().getUser();
-		int totalCost = 0;
+		double totalCost = 0;
+		
 		List<OrderItem> orderItemList = new ArrayList<>();
+		
+		Order order = new Order();
+		order.setUser(user);	
+		order.setOrderItems(orderItemList);
+		order.setStatus("wait for payment");
+		
+	
+		
 		for(CartItem cartItem : items) {
+			System.out.println(cartItem.getTotalPrice());
 			OrderItem orderItem = new OrderItem();
 			orderItem.setTotalPrice(cartItem.getTotalPrice());
 			orderItem.setProduct(cartItem.getProduct());
 			orderItem.setQuantity(cartItem.getQuantity());
 			orderItem.setTotalWeight(cartItem.getTotalWeight());
-			orderItemList.add(orderItem);
-			totalCost += cartItem.getTotalPrice();
-			orderItemRepository.save(orderItem);
+			orderItem.setOrder(order);
+			
+			totalCost = totalCost + cartItem.getTotalPrice();
+			order.setTotalCost(totalCost);
+			order.getOrderItems().add(orderItem);
 		}
-		Order order = new Order();
-		order.setUser(user);
-		order.setOrderItems(orderItemList);
-		order.setTotalCost(totalCost);
-		order.setStatus("wait for payment");
-		Order response = orderRepository.save(order);
+		
+		Order result = orderRepository.save(order);
+		
+		List<IOrderItem> response = orderItemRepository.getOrderItem(result.getId());
 		return response;
 	}
 

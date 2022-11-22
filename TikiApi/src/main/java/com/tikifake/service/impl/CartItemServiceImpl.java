@@ -11,8 +11,11 @@ import com.tikifake.entity.Cart;
 import com.tikifake.entity.CartItem;
 import com.tikifake.entity.Product;
 import com.tikifake.model.request.creator.CartItemCreatorRequest;
+import com.tikifake.model.request.creator.CartItemIdRequest;
 import com.tikifake.model.request.creator.CartItemInfoRequest;
+import com.tikifake.model.request.creator.CheckItemRequest;
 import com.tikifake.model.response.creator.CartItemCreatorResponse;
+import com.tikifake.model.response.list.ICartItemList;
 import com.tikifake.repository.CartItemRepository;
 import com.tikifake.repository.CartRepository;
 import com.tikifake.repository.ProductRepository;
@@ -61,24 +64,25 @@ public class CartItemServiceImpl implements CartItemService {
 	}
 
 	@Override
-	public void removeProductFromCart(CartItemInfoRequest cartItemInfoRequest) {
-		Long productId = cartItemInfoRequest.getProductId();
-		Long cartId = cartItemInfoRequest.getCartId();
+	public void removeProductFromCart(CartItemIdRequest cartItemIdRequest) {
+		Long productId = cartItemIdRequest.getProductId();
+		Long cartId = cartItemIdRequest.getCartId();
 
 		cartItemRepository.deleteByIdProductIdAndIdCartId(productId, cartId);
 	}
 
 	@Override
-	public CartItemCreatorResponse checkItem(CartItemInfoRequest info) {
+	public List<ICartItemList> checkItem(CheckItemRequest info) {
 		CartItem cartItem = cartItemRepository.findByIdProductIdAndIdCartId(info.getProductId(), info.getCartId());
-		cartItem.setCheck(true);
-		CartItem result = cartItemRepository.save(cartItem);
-		CartItemCreatorResponse response = new CartItemCreatorResponse(result);
-		return response;
+		cartItem.setCheck(info.isCheck());
+		cartItemRepository.save(cartItem);
+		List<ICartItemList> items = cartItemRepository.findAllCheckedItemInCartDTO(info.getCartId());
+//		CartItemCreatorResponse response = new CartItemCreatorResponse(result);
+		return items;
 	}
 
 	@Override
-	public CartItemCreatorResponse unCheckItem(CartItemInfoRequest info) {
+	public CartItemCreatorResponse unCheckItem(CartItemIdRequest info) {
 		CartItem cartItem = cartItemRepository.findByIdProductIdAndIdCartId(info.getProductId(), info.getCartId());
 		cartItem.setCheck(false);
 		CartItem result = cartItemRepository.save(cartItem);
@@ -87,12 +91,12 @@ public class CartItemServiceImpl implements CartItemService {
 	}
 
 	@Override
-	public CartItemCreatorResponse increaseByOne(CartItemInfoRequest info) {
+	public CartItemCreatorResponse changeQuantity(CartItemInfoRequest info) {
 		CartItem cartItem = cartItemRepository.findByIdProductIdAndIdCartId(info.getProductId(), info.getCartId());
-		int newQuantity = cartItem.getQuantity() + 1;
+		int newQuantity = cartItem.getQuantity() + info.getQuantity();
 		double productPrice = cartItem.getProduct().getPrice();
 		double productWeight = cartItem.getProduct().getWeight();
-
+		
 		cartItem.setQuantity(newQuantity);
 		cartItem.setTotalPrice(newQuantity * productPrice);
 		cartItem.setTotalWeight(newQuantity * productWeight);
@@ -102,21 +106,6 @@ public class CartItemServiceImpl implements CartItemService {
 		return response;
 	}
 
-	@Override
-	public CartItemCreatorResponse decreaseByOne(CartItemInfoRequest info) {
-		CartItem cartItem = cartItemRepository.findByIdProductIdAndIdCartId(info.getProductId(), info.getCartId());
-		int newQuantity = cartItem.getQuantity() - 1;
-		double productPrice = cartItem.getProduct().getPrice();
-		double productWeight = cartItem.getProduct().getWeight();
-
-		cartItem.setQuantity(newQuantity);
-		cartItem.setTotalPrice(newQuantity * productPrice);
-		cartItem.setTotalWeight(newQuantity * productWeight);
-
-		CartItem result = cartItemRepository.save(cartItem);
-		CartItemCreatorResponse response = new CartItemCreatorResponse(result);
-		return response;
-	}
 
 	@Override
 	public List<CartItemCreatorResponse> checkAllItem(Long cartId) {

@@ -1,12 +1,12 @@
 package com.tikifake.model.request.creator;
 
-public class CartItemInfoRequest {
-
+public class CheckItemRequest {
+	
 	private Long cartId;
 
 	private Long productId;
 	
-	private int quantity;
+	private boolean check;
 
 	public Long getCartId() {
 		return cartId;
@@ -16,9 +16,11 @@ public class CartItemInfoRequest {
 		return productId;
 	}
 
-	public int getQuantity() {
-		return quantity;
+	public boolean isCheck() {
+		return check;
 	}
-	
-	
+
+	public void setCheck(boolean check) {
+		this.check = check;
+	}
 }

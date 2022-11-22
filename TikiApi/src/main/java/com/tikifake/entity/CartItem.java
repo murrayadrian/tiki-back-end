@@ -40,6 +40,36 @@ public class CartItem {
 	@Column(name = "checked")
 	private boolean isCheck;
 	
+	//
+	
+	public Long getCartId() {
+		return this.id.cartId;
+	}
+	public Long getProductId() {
+		return this.id.productId;
+	}
+	public String getProductName() {
+		return product.getName();
+	}
+	public String getProductImage() {
+		return product.getImage();
+	}
+	public double getProductPrice() {
+		return product.getPrice();
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public boolean isCheck() {
+		return isCheck;
+	}
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+	public String getShopName() {
+		return this.product.getShop().getName();
+	}
+	//
 	public Product getProduct() {
 		return product;
 	}
@@ -48,17 +78,8 @@ public class CartItem {
 		this.product = product;
 	}
 
-	public int getQuantity() {
-		return quantity;
-	}
-
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
-	}
-
-
-	public double getTotalPrice() {
-		return totalPrice;
 	}
 
 	public void setTotalPrice(double totalPrice) {
@@ -79,10 +100,6 @@ public class CartItem {
 
 	public void setCart(Cart cart) {
 		this.cart = cart;
-	}
-
-	public boolean isCheck() {
-		return isCheck;
 	}
 
 	public void setCheck(boolean isCheck) {

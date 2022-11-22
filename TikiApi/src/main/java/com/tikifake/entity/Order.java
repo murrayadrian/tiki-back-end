@@ -2,8 +2,10 @@ package com.tikifake.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,20 +22,21 @@ public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_order")
 	@SequenceGenerator(name = "seq_order", allocationSize = 1, initialValue = 101)
-	@Column(name="order_id")
+	@Column(name = "order_id")
 	private Long id;
 
 	@OneToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name = "user_id")
 	private User user;
-	
-	@OneToMany(mappedBy = "order")
+
+	@OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private List<OrderItem> orderItems;
-	
+
 	@Column(name = "total_cost")
 	private double totalCost;
-	
+
 	private String status;
+
 
 	public Long getId() {
 		return id;

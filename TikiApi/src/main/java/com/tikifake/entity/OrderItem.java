@@ -28,7 +28,6 @@ public class OrderItem {
 	@ManyToOne
 	private Product product;
 	
-	
 	@Column(name = "quantity")
 	private int quantity;
 
@@ -38,7 +37,22 @@ public class OrderItem {
 	@Column(name = "total_weight")
 	private double totalWeight;
 	
+	//
+	public Long getOrderId() {
+		return order.getId();
+	}
 	
+	public Long getProductId() {
+		return this.product.getId();
+	}
+	
+	public String getProductName() {
+		return this.product.getName();
+	}
+	public double getProductPrice() {
+		return this.product.getPrice();
+	}
+	//
 	public Product getProduct() {
 		return product;
 	}
@@ -69,6 +83,14 @@ public class OrderItem {
 
 	public void setTotalWeight(double totalWeight) {
 		this.totalWeight = totalWeight;
+	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 	
 }
