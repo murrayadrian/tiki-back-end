@@ -18,6 +18,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	public IProductDetail findByIdDTO(Long id);
 	
 	@Query("select p from Product p JOIN FETCH p.categorySub WHERE p.categorySub.id = ?1")
-	public List<IProductDetail> findByCategorySubId(Long id);
+	public List<IProductDetail> findByCategorySubId(Long id, Pageable pageable);
 	
 }

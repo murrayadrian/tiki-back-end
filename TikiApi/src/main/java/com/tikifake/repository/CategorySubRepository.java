@@ -17,6 +17,6 @@ public interface CategorySubRepository extends JpaRepository<CategorySub, Long>{
 	@Query("select t from CategorySub t where t.id= ?1")
 	public ICategorySubDetail findByIdDTO(Long id);
 	
-	@Query("select c from CategorySub c JOIN FETCH c.category WHERE c.category.id = ?1")
+	@Query("select c from CategorySub c WHERE c.category.id = ?1")
 	public List<ICategorySubDetail> findByCategoryId(Long id);
 }

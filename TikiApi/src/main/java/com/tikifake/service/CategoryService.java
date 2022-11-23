@@ -10,6 +10,8 @@ import com.tikifake.model.response.list.ICategoryList;
 
 public interface CategoryService {
 
+
+	
 	public ICategoryDetail getDetailById(Long categoryId);
 
 	public List<ICategoryList> getAll(int page);

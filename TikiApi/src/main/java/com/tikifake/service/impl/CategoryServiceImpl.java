@@ -29,6 +29,8 @@ public class CategoryServiceImpl implements CategoryService {
 	public ICategoryDetail getDetailById(Long categoryId) {
 		return categoryRepository.findByIdDTO(categoryId);
 	}
+	
+	
 
 	@Override
 	public List<ICategoryList> getAll(int page) {
