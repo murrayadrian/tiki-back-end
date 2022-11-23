@@ -1,43 +1,73 @@
 package com.tikifake.entity;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 
+import com.tikifake.entity.embeddedid.CartItemId;
+
 @Entity
-@Table(name = "Cart_Item")
+@Table(name = "cart_item")
 public class CartItem {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_cart_item")
-	@SequenceGenerator(name = "seq_cart_item", allocationSize = 1, initialValue = 1)
-	private Long id;
+	@EmbeddedId
+	public CartItemId id = new CartItemId();
 
-	@OneToOne
+	@MapsId("productId")
+	@JoinColumns({ @JoinColumn(name = "product_id", referencedColumnName = "product_id") })
+	@ManyToOne
 	private Product product;
 
+	@MapsId("cartId")
+	@JoinColumns({ @JoinColumn(name = "cart_id", referencedColumnName = "cart_id") })
+	@ManyToOne
+	private Cart cart;
+	
 	@Column(name = "quantity")
 	private int quantity;
 
-	@Column(name = "price")
-	private double price;
+	@Column(name = "total_price")
+	private double totalPrice;
 
 	@Column(name = "total_weight")
 	private double totalWeight;
-
-	public Long getId() {
-		return id;
+	
+	@Column(name = "checked")
+	private boolean isCheck;
+	
+	//
+	
+	public Long getCartId() {
+		return this.id.cartId;
 	}
-
-	public void setId(Long id) {
-		this.id = id;
+	public Long getProductId() {
+		return this.id.productId;
 	}
-
+	public String getProductName() {
+		return product.getName();
+	}
+	public String getProductImage() {
+		return product.getImage();
+	}
+	public double getProductPrice() {
+		return product.getPrice();
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public boolean isCheck() {
+		return isCheck;
+	}
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+	
+	//
 	public Product getProduct() {
 		return product;
 	}
@@ -46,20 +76,12 @@ public class CartItem {
 		this.product = product;
 	}
 
-	public int getQuantity() {
-		return quantity;
-	}
-
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 
 	public double getTotalWeight() {
@@ -69,5 +91,16 @@ public class CartItem {
 	public void setTotalWeight(double totalWeight) {
 		this.totalWeight = totalWeight;
 	}
-	
+
+	public Cart getCart() {
+		return cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
+
+	public void setCheck(boolean isCheck) {
+		this.isCheck = isCheck;
+	}
 }

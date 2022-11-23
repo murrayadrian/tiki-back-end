@@ -2,6 +2,7 @@ package com.tikifake.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +27,7 @@ public class Comment {
 	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
 	private User user;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "product_id", referencedColumnName = "product_id")
 	private Product product;
 	
@@ -38,6 +39,7 @@ public class Comment {
 	public double getAvgStar() {
 		return product.getAvgStar();
 	}
+	
 	public Long getProductId() {
 		return product.getId();
 	}

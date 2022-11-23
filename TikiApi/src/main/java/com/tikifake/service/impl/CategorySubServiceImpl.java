@@ -14,7 +14,9 @@ import com.tikifake.model.request.creator.CategorySubCreator;
 import com.tikifake.model.request.update.CategorySubUpdate;
 import com.tikifake.model.response.creator.CategorySubResponse;
 import com.tikifake.model.response.detail.ICategorySubDetail;
+
 import com.tikifake.model.response.list.ICategorySubList;
+
 import com.tikifake.repository.CategoryRepository;
 import com.tikifake.repository.CategorySubRepository;
 import com.tikifake.service.CategorySubService;
@@ -63,4 +65,11 @@ public class CategorySubServiceImpl implements CategorySubService{
 		return response;
 	}
 
+
+	@Override
+	public CategorySub getCategoryById(Long categoryId) {
+		return categorySubRepository.findById(categoryId).get();
+	}
+
 }
+

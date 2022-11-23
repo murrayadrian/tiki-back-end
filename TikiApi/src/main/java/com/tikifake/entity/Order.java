@@ -1,37 +1,42 @@
 package com.tikifake.entity;
 
-import java.util.Set;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Orders")
+@Table(name = "orders")
 public class Order {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_order")
-	@SequenceGenerator(name = "seq_order", allocationSize = 1, initialValue = 1)
+	@SequenceGenerator(name = "seq_order", allocationSize = 1, initialValue = 101)
+	@Column(name = "order_id")
 	private Long id;
 
-	@Column(name = "address")
-	private String address;
-
-	@Column(name = "total_price")
-	private double totalPrice;
-	
 	@OneToOne
+	@JoinColumn(name = "user_id")
 	private User user;
 
-	@OneToMany
-	private Set<CartItem> cartItem;
+	@OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	private List<OrderItem> orderItems;
+
+	@Column(name = "total_cost")
+	private double totalCost;
+
+	private String status;
+
 
 	public Long getId() {
 		return id;
@@ -39,14 +44,6 @@ public class Order {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
 	}
 
 	public User getUser() {
@@ -57,20 +54,28 @@ public class Order {
 		this.user = user;
 	}
 
-	public Set<CartItem> getCartItem() {
-		return cartItem;
+	public double getTotalCost() {
+		return totalCost;
 	}
 
-	public void setCartItem(Set<CartItem> cartItem) {
-		this.cartItem = cartItem;
+	public void setTotalCost(double totalCost) {
+		this.totalCost = totalCost;
 	}
 
-	public double getTotalPrice() {
-		return totalPrice;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setTotalPrice(double totalPrice) {
-		this.totalPrice = totalPrice;
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public List<OrderItem> getOrderItems() {
+		return orderItems;
+	}
+
+	public void setOrderItems(List<OrderItem> orderItems) {
+		this.orderItems = orderItems;
 	}
 
 }

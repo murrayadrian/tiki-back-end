@@ -1,14 +1,14 @@
-package com.tikifake.model.response.creator;
+package com.tikifake.model.response.update;
 
 import com.tikifake.entity.Role;
 
-public class RoleResponse {
+public class RoleUpdateResponse {
 	
 	private Long id;
 	
 	private String name;
 	
-	public RoleResponse convertEntityToModel(Role role) {
+	public RoleUpdateResponse convertEntityToModel(Role role) {
 		this.id = role.getId();
 		this.name = role.getName();
 		return this;

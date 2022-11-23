@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,8 +39,8 @@ public class ProductController {
 	
 	
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
-	public ResponseEntity<Object> getAll(int page) {
-		List<IProductList> products = productService.getAll(page);
+	public ResponseEntity<Object> getAll(int page, String sort) {
+		List<IProductList> products = productService.getAll(page, sort);
 		if (products == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fail");
 		}
@@ -48,16 +49,16 @@ public class ProductController {
 	
 	
 	@RequestMapping(value = "/getByCategorySubId/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Object> getByCategorySubId(@PathVariable("id") Long id) {
-		List<IProductDetail> response = productService.getByCategorySubId(id);
+	public ResponseEntity<Object> getByCategorySubId(@PathVariable("id") Long id,int page, String sort) {
+		List<IProductDetail> response = productService.getByCategorySubId(id,page, sort);
 		return ResponseEntity.ok().body(response);
 		
 	}
 	
 	
 	@RequestMapping(value = "/getByCategoryId/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Object> getByCategoryId(@PathVariable("id") Long id) {
-		Map<String,List<IProductDetail>> response = productService.getByCategoryId(id);
+	public ResponseEntity<Object> getByCategoryId(@PathVariable("id") Long id, int page, String sort) {
+		Map<String,List<IProductDetail>> response = productService.getByCategoryId(id,page,sort);
 		return ResponseEntity.ok().body(response);	
 	}
 	
@@ -86,4 +87,5 @@ public class ProductController {
 		productService.update(productUpdate);
 		return ResponseEntity.status(HttpStatus.OK).body("update successfully");
 	}
+	
 }

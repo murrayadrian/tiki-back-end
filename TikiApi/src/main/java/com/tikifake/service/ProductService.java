@@ -13,11 +13,11 @@ import com.tikifake.model.response.list.IProductList;
 public interface ProductService {
 	public IProductDetail getDetailById(Long productId);
 
-	public List<IProductList> getAll(int page);
+	public List<IProductList> getAll(int page, String sort);
 	
-	public List<IProductDetail> getByCategorySubId(Long id);
+	public List<IProductDetail> getByCategorySubId(Long id, int page, String sort);
 	
-	public Map<String,List<IProductDetail>> getByCategoryId(Long id);
+	public Map<String,List<IProductDetail>> getByCategoryId(Long id, int page, String sort);
 
 	public ProductResponse save(ProductCreator productcreator);
 

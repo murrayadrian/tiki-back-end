@@ -14,6 +14,7 @@ import com.tikifake.model.request.update.CategoryUpdate;
 import com.tikifake.model.response.creator.CategoryResponse;
 import com.tikifake.model.response.detail.ICategoryDetail;
 import com.tikifake.model.response.list.ICategoryList;
+
 import com.tikifake.repository.CategoryRepository;
 import com.tikifake.service.CategoryService;
 
@@ -28,6 +29,8 @@ public class CategoryServiceImpl implements CategoryService {
 	public ICategoryDetail getDetailById(Long categoryId) {
 		return categoryRepository.findByIdDTO(categoryId);
 	}
+	
+	
 
 	@Override
 	public List<ICategoryList> getAll(int page) {
