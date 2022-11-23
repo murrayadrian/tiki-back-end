@@ -4,16 +4,30 @@ import java.util.List;
 
 import com.tikifake.model.response.detail.IUserDetail;
 import com.tikifake.model.response.list.ICart;
-import com.tikifake.model.response.list.ICartItemList;
+import com.tikifake.model.response.list.ICartItemInfo;
 
 public class CartDTO {
+	
+	private int items;
 	
 	private ICart cartInfo;
 	
 	private IUserDetail userInfo;
 	
-	private List<ICartItemList> cartItems;
+	private List<ICartItemInfo> cartItemInfoList;
 	
+
+	
+	
+	
+
+	public int getItems() {
+		return items;
+	}
+
+	public void setItems(int items) {
+		this.items = items;
+	}
 
 	public ICart getCartInfo() {
 		return cartInfo;
@@ -32,12 +46,13 @@ public class CartDTO {
 		this.userInfo = userInfo;
 	}
 
-	public List<ICartItemList> getCartItems() {
-		return cartItems;
+	public List<ICartItemInfo> getCartItemInfoList() {
+		return cartItemInfoList;
 	}
 
-	public void setCartItems(List<ICartItemList> cartItems) {
-		this.cartItems = cartItems;
+	public void setCartItemInfoList(List<ICartItemInfo> cartItemInfoList) {
+		this.cartItemInfoList = cartItemInfoList;
 	}
+
 	
 }

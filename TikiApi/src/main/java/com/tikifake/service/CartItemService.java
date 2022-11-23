@@ -18,10 +18,10 @@ public interface CartItemService {
 	//
 	public List<ICartItemList> checkItem(CheckItemRequest info);
 
-	public CartItemCreatorResponse unCheckItem(CartItemIdRequest info);
+//	public CartItemCreatorResponse unCheckItem(CartItemIdRequest info);
 	
 	//
-	public CartItemCreatorResponse changeQuantity(CartItemInfoRequest info);
+	public List<ICartItemList> changeQuantity(CartItemInfoRequest info);
 	
 	//
 	public List<CartItemCreatorResponse> checkAllItem(Long cartId);

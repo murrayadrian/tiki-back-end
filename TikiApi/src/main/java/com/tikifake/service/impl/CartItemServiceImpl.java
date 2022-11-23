@@ -77,21 +77,20 @@ public class CartItemServiceImpl implements CartItemService {
 		cartItem.setCheck(info.isCheck());
 		cartItemRepository.save(cartItem);
 		List<ICartItemList> items = cartItemRepository.findAllCheckedItemInCartDTO(info.getCartId());
-//		CartItemCreatorResponse response = new CartItemCreatorResponse(result);
 		return items;
 	}
 
-	@Override
-	public CartItemCreatorResponse unCheckItem(CartItemIdRequest info) {
-		CartItem cartItem = cartItemRepository.findByIdProductIdAndIdCartId(info.getProductId(), info.getCartId());
-		cartItem.setCheck(false);
-		CartItem result = cartItemRepository.save(cartItem);
-		CartItemCreatorResponse response = new CartItemCreatorResponse(result);
-		return response;
-	}
+//	@Override
+//	public CartItemCreatorResponse unCheckItem(CartItemIdRequest info) {
+//		CartItem cartItem = cartItemRepository.findByIdProductIdAndIdCartId(info.getProductId(), info.getCartId());
+//		cartItem.setCheck(false);
+//		CartItem result = cartItemRepository.save(cartItem);
+//		CartItemCreatorResponse response = new CartItemCreatorResponse(result);
+//		return response;
+//	}
 
 	@Override
-	public CartItemCreatorResponse changeQuantity(CartItemInfoRequest info) {
+	public List<ICartItemList> changeQuantity(CartItemInfoRequest info) {
 		CartItem cartItem = cartItemRepository.findByIdProductIdAndIdCartId(info.getProductId(), info.getCartId());
 		int newQuantity = cartItem.getQuantity() + info.getQuantity();
 		double productPrice = cartItem.getProduct().getPrice();
@@ -101,9 +100,9 @@ public class CartItemServiceImpl implements CartItemService {
 		cartItem.setTotalPrice(newQuantity * productPrice);
 		cartItem.setTotalWeight(newQuantity * productWeight);
 
-		CartItem result = cartItemRepository.save(cartItem);
-		CartItemCreatorResponse response = new CartItemCreatorResponse(result);
-		return response;
+		cartItemRepository.save(cartItem);
+		List<ICartItemList> items = cartItemRepository.findAllCheckedItemInCartDTO(info.getCartId());
+		return items;
 	}
 
 

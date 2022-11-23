@@ -48,8 +48,6 @@ public class OrderServiceImpl implements OrderService {
 		order.setOrderItems(orderItemList);
 		order.setStatus("wait for payment");
 		
-	
-		
 		for(CartItem cartItem : items) {
 			System.out.println(cartItem.getTotalPrice());
 			OrderItem orderItem = new OrderItem();

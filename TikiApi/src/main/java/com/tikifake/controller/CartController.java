@@ -76,7 +76,7 @@ public class CartController {
 	
 	@PostMapping("/changeQuantity")
 	public ResponseEntity<Object> changeQuantity(@RequestBody CartItemInfoRequest info) {
-		CartItemCreatorResponse response = cartItemService.changeQuantity(info);
+		List<ICartItemList> response = cartItemService.changeQuantity(info);
 		return ResponseEntity.ok().body(response);
 	}
 	

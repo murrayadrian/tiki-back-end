@@ -18,6 +18,4 @@ public interface ICartItemList {
 	
 	public boolean isCheck();
 	
-	public String getShopName();
-	
 }
