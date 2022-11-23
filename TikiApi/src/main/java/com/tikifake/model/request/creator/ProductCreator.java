@@ -1,6 +1,5 @@
 package com.tikifake.model.request.creator;
 
-import com.tikifake.entity.Category;
 import com.tikifake.entity.CategorySub;
 import com.tikifake.entity.Product;
 

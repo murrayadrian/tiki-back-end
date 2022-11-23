@@ -66,9 +66,7 @@ public class CartItem {
 	public double getTotalPrice() {
 		return totalPrice;
 	}
-	public String getShopName() {
-		return this.product.getShop().getName();
-	}
+	
 	//
 	public Product getProduct() {
 		return product;
