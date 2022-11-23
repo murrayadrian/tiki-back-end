@@ -65,6 +65,7 @@ public class CategorySubServiceImpl implements CategorySubService{
 		return response;
 	}
 
+<<<<<<< HEAD
 
 	@Override
 	public CategorySub getCategoryById(Long categoryId) {
@@ -73,3 +74,6 @@ public class CategorySubServiceImpl implements CategorySubService{
 
 }
 
+=======
+}
+>>>>>>> master

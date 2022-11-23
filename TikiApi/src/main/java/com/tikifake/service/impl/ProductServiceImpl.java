@@ -88,6 +88,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public Map<String, List<IProductDetail>> getByCategoryId(Long id, int page, String sort) {
 
 		List<ICategorySubDetail> iCategorySubs = categorySubService.getByCategoryId(id);
@@ -115,6 +116,20 @@ public class ProductServiceImpl implements ProductService {
 			}
 			iProductList = productRepository.findByCategorySubId(categorySubId,pageable);
 			iProductMap.put(categorySubName, iProductList);
+=======
+	public Map<String, List<IProductDetail>> getByCategoryId(Long id) {
+
+		List<ICategorySubDetail> iCategorySubs = categorySubRepository.findByCategoryId(id);
+		List<IProductDetail> iProductList = new ArrayList<>();
+		Map<String, List<IProductDetail>> iProductMap = new HashMap<>();
+
+		for (int i = 0; i < iCategorySubs.size(); i++) {
+			String categorySubName = iCategorySubs.get(i).getName();
+			Long categorySubId = iCategorySubs.get(i).getId();
+
+			iProductList = productRepository.findByCategorySubId(categorySubId);
+			iProductMap.putIfAbsent(categorySubName, iProductList);
+>>>>>>> master
 		}
 
 		return iProductMap;
