@@ -1,32 +1,30 @@
 package com.tikifake.service;
 
-import java.util.List;
-
 import com.tikifake.model.request.creator.CartItemCreatorRequest;
-import com.tikifake.model.request.creator.CartItemIdRequest;
+import com.tikifake.model.request.creator.RemoveProductRequest;
 import com.tikifake.model.request.creator.CartItemInfoRequest;
 import com.tikifake.model.request.creator.CheckItemRequest;
+import com.tikifake.model.request.creator.ShopCheckRequest;
 import com.tikifake.model.response.creator.CartItemCreatorResponse;
-import com.tikifake.model.response.list.ICartItemList;
+import com.tikifake.model.response.creator.ChangeQuantityResponse;
+import com.tikifake.model.response.creator.FinalPriceResponse;
 
 public interface CartItemService {
 
 	public CartItemCreatorResponse addProductToCart(CartItemCreatorRequest cartItemCreatorRequest);
 
-	public void removeProductFromCart(CartItemIdRequest cartItemIdRequest);
+	public FinalPriceResponse removeProductFromCart(RemoveProductRequest removeProductRequest);
 	
 	//
-	public List<ICartItemList> checkItem(CheckItemRequest info);
+	public FinalPriceResponse checkItem(CheckItemRequest info);
 
-//	public CartItemCreatorResponse unCheckItem(CartItemIdRequest info);
+	public FinalPriceResponse checkAllItemInShop(ShopCheckRequest info);
 	
 	//
-	public List<ICartItemList> changeQuantity(CartItemInfoRequest info);
+	public ChangeQuantityResponse changeQuantity(CartItemInfoRequest info);
 	
 	//
-	public List<CartItemCreatorResponse> checkAllItem(Long cartId);
-
-	public List<CartItemCreatorResponse> unCheckAllItem(Long cartId);
+	public FinalPriceResponse checkAllItem(Long cartId);
 
 	public void removeAllCheckedItem(Long cartId);
 }

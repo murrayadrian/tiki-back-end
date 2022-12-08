@@ -13,7 +13,6 @@ import com.tikifake.entity.CartItem;
 import com.tikifake.entity.Product;
 import com.tikifake.entity.Shop;
 import com.tikifake.model.response.creator.CartDTO;
-import com.tikifake.model.response.creator.CartItemCheckoutResponse;
 import com.tikifake.model.response.creator.CartItemCreatorResponse;
 import com.tikifake.model.response.detail.IUserDetail;
 import com.tikifake.model.response.list.ICart;
@@ -54,22 +53,6 @@ public class CartServiceImpl implements CartService {
 			response.add(res);
 		}
 		return response;
-	}
-
-
-	@Override
-	public List<CartItemCheckoutResponse> checkout(Long cartId) {
-		List<CartItem> checkoutList = cartItemRepository.findAllCheckedItemInCart(cartId);
-		List<CartItemCheckoutResponse> checkoutResponse = new ArrayList<>();
-		
-		if(!checkoutList.isEmpty()) {
-			for (CartItem item : checkoutList) {
-				CartItemCheckoutResponse response = new CartItemCheckoutResponse(item);
-				checkoutResponse.add(response);
-			}
-		}
-		
-		return checkoutResponse;
 	}
 
 

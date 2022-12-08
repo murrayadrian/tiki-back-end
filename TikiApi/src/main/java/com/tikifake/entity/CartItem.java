@@ -103,4 +103,11 @@ public class CartItem {
 	public void setCheck(boolean isCheck) {
 		this.isCheck = isCheck;
 	}
+	@Override
+	public String toString() {
+		return "CartItem [id=" + id + ", quantity=" + quantity + ", totalPrice=" + totalPrice + ", totalWeight="
+				+ totalWeight + ", isCheck=" + isCheck + "]";
+	}
+	
+	
 }

@@ -21,4 +21,7 @@ public interface ShopRepository extends JpaRepository<Shop, Long> {
 	
 	@Query("select count(s.name) > 0 from Shop s where s.id != :id and s.name = :nameUpdate")
 	public boolean isExistNameUpdate(@Param("id") Long id, @Param("nameUpdate") String nameUpdate);
+	
+	@Query("select s from Shop s where s.name = ?1")
+	public IShopDetail findByNameDTO(String shopName);
 }

@@ -26,7 +26,11 @@ public interface CartItemRepository extends JpaRepository<CartItem, CartItemId> 
 	@Query("select c from CartItem c where c.id.cartId = ?1 and c.isCheck = 1")
 	public List<ICartItemList> findAllCheckedItemInCartDTO(Long cartId);
 	
+	@Modifying
 	public void deleteByIdProductIdAndIdCartId(Long productId, Long cartId);
+	
+	@Query("select c from CartItem c where c.id.productId = ?1")
+	public ICartItemList findByProductId(Long productId);
 	
 	@Modifying
 	@Query("delete from CartItem c where c.id.cartId = ?1 and c.isCheck = 1")
