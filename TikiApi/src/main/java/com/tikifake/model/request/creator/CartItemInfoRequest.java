@@ -4,7 +4,7 @@ public class CartItemInfoRequest {
 
 	private Long cartId;
 
-	private Long productId;
+	private Long productItemId;
 	
 	private int quantity;
 
@@ -12,8 +12,8 @@ public class CartItemInfoRequest {
 		return cartId;
 	}
 
-	public Long getProductId() {
-		return productId;
+	public Long getProductItemId() {
+		return productItemId;
 	}
 
 	public int getQuantity() {

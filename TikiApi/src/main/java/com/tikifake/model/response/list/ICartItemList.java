@@ -6,7 +6,7 @@ public interface ICartItemList {
 	
 	public double getTotalPrice();
 	
-	public Long getProductId();
+	public Long getProductItemId();
 	
 	public String getProductName();
 	

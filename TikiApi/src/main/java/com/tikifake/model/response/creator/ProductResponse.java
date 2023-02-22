@@ -1,7 +1,5 @@
 package com.tikifake.model.response.creator;
 
-import java.time.LocalDateTime;
-
 import com.tikifake.entity.Product;
 
 public class ProductResponse {
@@ -10,30 +8,21 @@ public class ProductResponse {
 
 	private String name;
 
-	private String description;
-
 	private double price;
 
 	private String image;
 
-	private String brand;
-
-	private String madeIn;
+	private int qtySold;
 	
-	private LocalDateTime createdDate;
+	private int discountRate;
 
-	private Long categorySubId;
-
-	public ProductResponse(Product product) {
+	public ProductResponse(Product product, double cheeppestPrice, int qtySold, int discountRate, String image) {
 		this.id = product.getId();
 		this.name = product.getName();
-		this.description = product.getDescription();
 		this.image = product.getImage();
-		this.price = product.getPrice();
-		this.brand = product.getBrand();
-		this.madeIn = product.getMadeIn();
-		this.createdDate = product.getCreatedDate();
-		this.categorySubId = product.getCategorySub().getId();
+		this.price = cheeppestPrice;
+		this.qtySold = qtySold;
+		this.discountRate = discountRate;
 	}
 
 	public Long getId() {
@@ -44,10 +33,6 @@ public class ProductResponse {
 		return name;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
 	public double getPrice() {
 		return price;
 	}
@@ -56,20 +41,12 @@ public class ProductResponse {
 		return image;
 	}
 
-	public String getBrand() {
-		return brand;
+	public int getQtySold() {
+		return qtySold;
 	}
 
-	public String getMadeIn() {
-		return madeIn;
-	}
-
-	public LocalDateTime getCreatedDate() {
-		return createdDate;
-	}
-
-	public Long getCategorySubId() {
-		return categorySubId;
+	public int getDiscountRate() {
+		return discountRate;
 	}
 
 }

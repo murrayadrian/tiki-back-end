@@ -4,23 +4,21 @@ public class CheckItemRequest {
 	
 	private Long cartId;
 
-	private Long productId;
+	private Long productItemId;
 	
-	private boolean check;
+	private String shopName;
+	
 
 	public Long getCartId() {
 		return cartId;
 	}
 
-	public Long getProductId() {
-		return productId;
+	public Long getProductItemId() {
+		return productItemId;
 	}
 
-	public boolean isCheck() {
-		return check;
+	public String getShopName() {
+		return shopName;
 	}
-
-	public void setCheck(boolean check) {
-		this.check = check;
-	}
+	
 }

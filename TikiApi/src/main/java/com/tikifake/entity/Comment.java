@@ -8,36 +8,28 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "Comment")
 public class Comment {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_comment")
-	@SequenceGenerator(name = "seq_comment", allocationSize = 1, initialValue = 1)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(name ="comment", columnDefinition = "text")
 	private String comment;
 	
 	@ManyToOne
-	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
+	@JoinColumn(name = "user_id")
 	private User user;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "product_id", referencedColumnName = "product_id")
+	@JoinColumn(name = "product_id")
 	private Product product;
 	
 	
 	public String getNameUser() {
 		return user.getName();
-	}
-
-	public double getAvgStar() {
-		return product.getAvgStar();
 	}
 	
 	public Long getProductId() {

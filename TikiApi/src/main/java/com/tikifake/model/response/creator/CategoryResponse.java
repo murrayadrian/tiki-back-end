@@ -8,13 +8,15 @@ public class CategoryResponse {
 	
 	private String name;
 	
-	private String description;
+	private int level;
 	
+	private boolean leaf;
 	
 	public CategoryResponse convertEntityToResponse(Category category) {
 		this.id = category.getId();
 		this.name = category.getName();
-		this.description = category.getDescription();
+		this.level = category.getLevel();
+		this.leaf = category.isLeaf();
 		return this;
 	}
 	public Long getId() {
@@ -24,9 +26,11 @@ public class CategoryResponse {
 	public String getName() {
 		return name;
 	}
-
-	public String getDescription() {
-		return description;
+	public int getLevel() {
+		return level;
+	}
+	public boolean isLeaf() {
+		return leaf;
 	}
 
 }

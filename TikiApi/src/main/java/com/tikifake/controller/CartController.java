@@ -14,13 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tikifake.model.request.creator.CartItemCreatorRequest;
-import com.tikifake.model.request.creator.CartItemIdRequest;
 import com.tikifake.model.request.creator.CartItemInfoRequest;
 import com.tikifake.model.request.creator.CheckItemRequest;
 import com.tikifake.model.request.creator.OrderRequest;
+import com.tikifake.model.request.creator.RemoveProductRequest;
+import com.tikifake.model.request.creator.ShopCheckRequest;
 import com.tikifake.model.response.creator.CartDTO;
-import com.tikifake.model.response.creator.CartItemCheckoutResponse;
 import com.tikifake.model.response.creator.CartItemCreatorResponse;
+import com.tikifake.model.response.creator.ChangeQuantityResponse;
+import com.tikifake.model.response.creator.FinalPriceResponse;
 import com.tikifake.model.response.list.ICartItemList;
 import com.tikifake.model.response.list.IOrderItem;
 import com.tikifake.service.CartItemService;
@@ -50,11 +52,6 @@ public class CartController {
 		return ResponseEntity.ok().body(response);
 	}
 	
-	@GetMapping("/checkout/{cartId}")
-	public ResponseEntity<Object> checkout(@PathVariable("cartId") Long cartId) {
-		List<CartItemCheckoutResponse> response = cartService.checkout(cartId);
-		return ResponseEntity.ok().body(response);
-	}
 	@GetMapping("/getOrderItem/{orderId}")
 	public ResponseEntity<Object> getOrderItem(@PathVariable("orderId") Long orderId) {
 		List<IOrderItem> response = orderItemService.getOrderItem(orderId);
@@ -76,33 +73,33 @@ public class CartController {
 	
 	@PostMapping("/changeQuantity")
 	public ResponseEntity<Object> changeQuantity(@RequestBody CartItemInfoRequest info) {
-		List<ICartItemList> response = cartItemService.changeQuantity(info);
+		ChangeQuantityResponse response = cartItemService.changeQuantity(info);
 		return ResponseEntity.ok().body(response);
 	}
 	
 	
 	@PutMapping("/checkItem")
 	public ResponseEntity<Object> checkItem(@RequestBody CheckItemRequest info) {
-		List<ICartItemList> response = cartItemService.checkItem(info);
+		FinalPriceResponse response = cartItemService.checkItem(info);
 		return ResponseEntity.ok().body(response);
 	}
+	
 	@PutMapping("/checkAllItem/{cartId}")
 	public ResponseEntity<Object> checkAllItem(@PathVariable("cartId") Long cartId) {
-		List<CartItemCreatorResponse> response = cartItemService.checkAllItem(cartId);
+		FinalPriceResponse response = cartItemService.checkAllItem(cartId);
 		return ResponseEntity.ok().body(response);
 	}
 	
-	@PutMapping("/unCheckAllItem/{cartId}")
-	public ResponseEntity<Object> unCheckAllItem(@PathVariable("cartId") Long cartId) {
-		List<CartItemCreatorResponse> response = cartItemService.unCheckAllItem(cartId);
+	@PutMapping("/checkAllItemInShop")
+	public ResponseEntity<Object> checkAllItemInShop(@RequestBody ShopCheckRequest info) {
+		FinalPriceResponse response = cartItemService.checkAllItemInShop(info);
 		return ResponseEntity.ok().body(response);
 	}
-	
 	
 	@DeleteMapping("/removeProductFromCart")
-	public ResponseEntity<Object> removeProductFromCart(@RequestBody CartItemIdRequest cartItemIdRequest) {
-		cartItemService.removeProductFromCart(cartItemIdRequest);
-		return ResponseEntity.ok().body(cartItemIdRequest);
+	public ResponseEntity<Object> removeProductFromCart(@RequestBody RemoveProductRequest removeProductRequest) {
+		FinalPriceResponse response = cartItemService.removeProductFromCart(removeProductRequest);
+		return ResponseEntity.ok().body(response);
 
 	}
 	
@@ -117,5 +114,4 @@ public class CartController {
 		List<ICartItemList> response = cartService.findAllCheckedItemInCart(cartId);
 		return ResponseEntity.ok().body(response);
 	}
-	
 }

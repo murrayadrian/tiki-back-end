@@ -28,12 +28,12 @@ public class ProductAddition {
 		this.id = product.getId();
 		this.name = product.getName();
 		this.description = product.getDescription();
-		this.image = product.getImage();
-		this.price = product.getPrice();
+//		this.image = product.getImage();
+//		this.price = product.getPrice();
 		this.brand = product.getBrand();
 //		this.madeBy = product.getMadeBy();
 //		this.createDate = product.getCreateDate();
-		this.categorySubId = product.getCategorySub().getId();
+		this.categorySubId = product.getCategory().getId();
 	}
 
 	public Long getId() {

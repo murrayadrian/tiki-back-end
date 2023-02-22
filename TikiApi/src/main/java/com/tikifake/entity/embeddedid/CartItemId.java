@@ -10,36 +10,35 @@ public class CartItemId implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	public Long cartId;
-	public Long productId;
+	public Long productItemId;
 	
 	public CartItemId() {
 		
 	}
-	public CartItemId(Long cartId, Long productId) {
-		super();
+	public CartItemId(Long cartId, Long productItemId) {
 		this.cartId = cartId;
-		this.productId = productId;
+		this.productItemId = productItemId;
 	}
 
 	public Long getCartId() {
 		return cartId;
 	}
 
-	public Long getProductId() {
-		return productId;
+	public Long getProductItemId() {
+		return productItemId;
 	}
 
 	public void setCartId(Long cartId) {
 		this.cartId = cartId;
 	}
 
-	public void setProductId(Long productId) {
-		this.productId = productId;
+	public void setProductItemId(Long productItemId) {
+		this.productItemId = productItemId;
 	}
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(cartId, productId);
+		return Objects.hash(cartId, productItemId);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -50,7 +49,7 @@ public class CartItemId implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		CartItemId other = (CartItemId) obj;
-		return Objects.equals(cartId, other.cartId) && Objects.equals(productId, other.productId);
+		return Objects.equals(cartId, other.cartId) && Objects.equals(productItemId, other.productItemId);
 	}
 
 }

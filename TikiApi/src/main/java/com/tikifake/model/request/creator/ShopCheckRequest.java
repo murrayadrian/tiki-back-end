@@ -1,16 +1,17 @@
 package com.tikifake.model.request.creator;
 
-public class CartItemIdRequest {
+public class ShopCheckRequest {
 	
 	private Long cartId;
-
-	private Long productId;
+	
+	private String shopName;
 
 	public Long getCartId() {
 		return cartId;
 	}
 
-	public Long getProductId() {
-		return productId;
+	public String getShopName() {
+		return shopName;
 	}
+	
 }

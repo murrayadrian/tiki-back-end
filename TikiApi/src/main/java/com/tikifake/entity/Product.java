@@ -1,8 +1,5 @@
 package com.tikifake.entity;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,64 +7,36 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "Products")
-public class Product implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3782633498469009466L;
+public class Product {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_product")
-	@SequenceGenerator(name = "seq_product", allocationSize = 1, initialValue = 1)
-	@Column(name = "product_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "name")
 	private String name;
 
-	@Column(name = "description", columnDefinition = "text")
+	@Column(columnDefinition = "text")
 	private String description;
 
-	@Column(name = "price")
-	private double price;
-
-	@Column(name = "image", columnDefinition = "text")
+	@Column(columnDefinition = "text")
 	private String image;
 
-	@Column(name = "brand")
 	private String brand;
 
-	@Column(name = "made_in")
-	private String madeIn;
-
-	@Column(name = "weight")
-	private double weight;
-
-	@Column(name = "number_of_rating")
-	private int numberOfRating;
-
-	@Column(name = "avg_star")
-	private double avgStar;
-
-	@Column(name = "create_date")
-	private LocalDateTime createdDate;
+	private String createdDate;
 
 	@ManyToOne
-	@JoinColumn(name = "category_sub_id")
-	private CategorySub categorySub;
+	@JoinColumn(name = "category_id")
+	private Category category;
 	
 	@ManyToOne
 	@JoinColumn(name = "shop_id")
 	private Shop shop;
 
-	public Long getCategorySubId() {
-		return categorySub.getId();
-	}
+	
+	
 
 	public Long getId() {
 		return id;
@@ -93,14 +62,6 @@ public class Product implements Serializable {
 		this.description = description;
 	}
 
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
-	}
-
 	public String getImage() {
 		return image;
 	}
@@ -117,51 +78,12 @@ public class Product implements Serializable {
 		this.brand = brand;
 	}
 
-	public String getMadeIn() {
-		return madeIn;
-	}
 
-	public void setMadeIn(String madeIn) {
-		this.madeIn = madeIn;
-	}
-
-	public double getWeight() {
-		return weight;
-	}
-
-	public void setWeight(double weight) {
-		this.weight = weight;
-	}
-
-	public int getNumberOfRating() {
-		return numberOfRating;
-	}
-
-	public void setNumberOfRating(int numberOfRating) {
-		this.numberOfRating = numberOfRating;
-	}
-
-	public double getAvgStar() {
-		return avgStar;
-	}
-
-	public void setAvgStar(double avgStar) {
-		this.avgStar = avgStar;
-	}
-
-	public CategorySub getCategorySub() {
-		return categorySub;
-	}
-
-	public void setCategorySub(CategorySub categorySub) {
-		this.categorySub = categorySub;
-	}
-
-	public LocalDateTime getCreatedDate() {
+	public String getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(LocalDateTime createdDate) {
+	public void setCreatedDate(String createdDate) {
 		this.createdDate = createdDate;
 	}
 
@@ -171,6 +93,14 @@ public class Product implements Serializable {
 
 	public void setShop(Shop shop) {
 		this.shop = shop;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 }

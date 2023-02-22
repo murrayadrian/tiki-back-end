@@ -2,25 +2,24 @@ package com.tikifake.model.request.creator;
 
 import com.tikifake.entity.Cart;
 import com.tikifake.entity.CartItem;
-import com.tikifake.entity.Product;
+import com.tikifake.entity.ProductItem;
 
 public class CartItemCreatorRequest {
 
 	private Long cartId;
 	
-	private Long productId;
+	private Long productItemId;
 
 	private int orderQuantity;
 
 	
 	
-	public CartItem convertToEntity(Product product, Cart cart) {
+	public CartItem convertToEntity(ProductItem productItem, Cart cart) {
 		CartItem cartItem = new CartItem();
 		cartItem.setCart(cart);
-		cartItem.setProduct(product);
+		cartItem.setProductItem(productItem);
 		cartItem.setQuantity(orderQuantity);
-		cartItem.setTotalPrice(orderQuantity * product.getPrice());
-		cartItem.setTotalWeight(orderQuantity * product.getWeight());
+		cartItem.setTotalPrice(orderQuantity * productItem.getPrice());
 		cartItem.setCheck(false);
 		return cartItem;
 	}
@@ -28,13 +27,12 @@ public class CartItemCreatorRequest {
 	public CartItem updateExistedCartItem(CartItem cartItem, int orderQuantity) {
 		int updateQuantity = cartItem.getQuantity() + orderQuantity;
 		cartItem.setQuantity(updateQuantity);
-		cartItem.setTotalPrice(updateQuantity * cartItem.getProduct().getPrice());
-		cartItem.setTotalWeight(updateQuantity * cartItem.getProduct().getWeight());
+		cartItem.setTotalPrice(updateQuantity * cartItem.getProductItem().getPrice());
 		return cartItem;
 	}
 	
-	public Long getProductId() {
-		return productId;
+	public Long getProductItemId() {
+		return productItemId;
 	}
 
 	public int getOrderQuantity() {

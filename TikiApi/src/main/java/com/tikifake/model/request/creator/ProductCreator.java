@@ -1,7 +1,8 @@
 package com.tikifake.model.request.creator;
 
-import com.tikifake.entity.CategorySub;
+import com.tikifake.entity.Category;
 import com.tikifake.entity.Product;
+import com.tikifake.entity.Shop;
 
 public class ProductCreator {
 
@@ -9,25 +10,24 @@ public class ProductCreator {
 
 	private String description;
 
-	private double price;
-
 	private String image;
 
 	private String brand;
+	
+	private Long categoryId;
+	
+	private Long shopId;
 
-	private String madeIn;
-
-	private Long categorySubId;
-
-	public Product convertDTOToEntity(CategorySub categorySub) {
+	public Product convertDTOToEntity(Category category, Shop shop, String createdDate) {
 		Product product = new Product();
 		product.setName(this.name);
 		product.setDescription(this.description);
-		product.setPrice(this.price);
 		product.setImage(this.image);
 		product.setBrand(this.brand);
-		product.setMadeIn(this.madeIn);
-		product.setCategorySub(categorySub);
+		product.setCategory(category);
+		product.setShop(shop);
+		product.setCreatedDate(createdDate);
+		
 		return product;
 	}
 	public String getName() {
@@ -38,10 +38,6 @@ public class ProductCreator {
 		return description;
 	}
 
-	public double getPrice() {
-		return price;
-	}
-
 	public String getImage() {
 		return image;
 	}
@@ -49,13 +45,12 @@ public class ProductCreator {
 	public String getBrand() {
 		return brand;
 	}
-
-	public String getMadeIn() {
-		return madeIn;
+	
+	public Long getCategoryId() {
+		return categoryId;
 	}
-
-	public Long getCategorySubId() {
-		return categorySubId;
+	
+	public Long getShopId() {
+		return shopId;
 	}
-
 }

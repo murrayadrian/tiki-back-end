@@ -20,5 +20,5 @@ public interface IProductDetail {
 	
 	public LocalDateTime getCreatedDate();
 
-	public Long getCategorySubId();
+	public Long getCategoryId();
 }
