@@ -9,11 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tikifake.entity.Cart;
 import com.tikifake.entity.CartItem;
-import com.tikifake.entity.Product;
+import com.tikifake.entity.ProductItem;
 import com.tikifake.model.request.creator.CartItemCreatorRequest;
-import com.tikifake.model.request.creator.RemoveProductRequest;
 import com.tikifake.model.request.creator.CartItemInfoRequest;
 import com.tikifake.model.request.creator.CheckItemRequest;
+import com.tikifake.model.request.creator.RemoveProductRequest;
 import com.tikifake.model.request.creator.ShopCheckRequest;
 import com.tikifake.model.response.creator.CartItemCreatorResponse;
 import com.tikifake.model.response.creator.ChangeQuantityResponse;
@@ -22,6 +22,7 @@ import com.tikifake.model.response.list.ICartItemList;
 import com.tikifake.model.response.list.IProductId;
 import com.tikifake.repository.CartItemRepository;
 import com.tikifake.repository.CartRepository;
+import com.tikifake.repository.ProductItemRepository;
 import com.tikifake.repository.ProductRepository;
 import com.tikifake.repository.ShopRepository;
 import com.tikifake.service.CartItemService;
@@ -41,15 +42,18 @@ public class CartItemServiceImpl implements CartItemService {
 
 	@Autowired
 	private ShopRepository shopRepository;
+	
+	@Autowired
+	private ProductItemRepository productItemRepository;
 
 	@Override
 	public CartItemCreatorResponse addProductToCart(CartItemCreatorRequest cartItemCreatorRequest) {
 
-		Long productId = cartItemCreatorRequest.getProductId();
+		Long productItemId = cartItemCreatorRequest.getProductItemId();
 		Long cartId = cartItemCreatorRequest.getCartId();
 		int orderQuantity = cartItemCreatorRequest.getOrderQuantity();
 
-		CartItem cartItemExist = cartItemRepository.findByIdProductIdAndIdCartId(productId, cartId);
+		CartItem cartItemExist = cartItemRepository.findByIdProductItemIdAndIdCartId(productItemId, cartId);
 
 		if (cartItemExist != null) {
 			cartItemExist = cartItemCreatorRequest.updateExistedCartItem(cartItemExist, orderQuantity);
@@ -60,9 +64,9 @@ public class CartItemServiceImpl implements CartItemService {
 
 		Cart cart = cartRepository.findById(cartId).get();
 
-		Product product = productRepository.findById(productId).get();
+		ProductItem productItem = productItemRepository.findById(productItemId).get();
 
-		CartItem cartItem = cartItemCreatorRequest.convertToEntity(product, cart);
+		CartItem cartItem = cartItemCreatorRequest.convertToEntity(productItem, cart);
 
 		CartItem result = cartItemRepository.save(cartItem);
 
@@ -73,9 +77,9 @@ public class CartItemServiceImpl implements CartItemService {
 
 	@Override
 	public FinalPriceResponse removeProductFromCart(RemoveProductRequest removeProductRequest) {
-		Long productId = removeProductRequest.getProductId();
+		Long productItemId = removeProductRequest.getProductItemId();
 		Long cartId = removeProductRequest.getCartId();
-		cartItemRepository.deleteByIdProductIdAndIdCartId(productId, cartId);
+		cartItemRepository.deleteByIdProductItemIdAndIdCartId(productItemId, cartId);
 		
 		double finalPrice = updateCart(cartId);
 		FinalPriceResponse response = new FinalPriceResponse(finalPrice);
@@ -84,10 +88,10 @@ public class CartItemServiceImpl implements CartItemService {
 
 	@Override
 	public FinalPriceResponse checkItem(CheckItemRequest info) {
-		Long productId = info.getProductId();
+		Long productItemId = info.getProductItemId();
 		Long cartId = info.getCartId();
 
-		CartItem cartItem = cartItemRepository.findByIdProductIdAndIdCartId(productId, cartId);
+		CartItem cartItem = cartItemRepository.findByIdProductItemIdAndIdCartId(productItemId, cartId);
 		double value = cartItem.isCheck() ? -1d : 1d;
 
 		Cart cart = cartRepository.findById(cartId).get();
@@ -106,18 +110,16 @@ public class CartItemServiceImpl implements CartItemService {
 
 	@Override
 	public ChangeQuantityResponse changeQuantity(CartItemInfoRequest info) {
-		Long productId = info.getProductId();
+		Long productItemId = info.getProductItemId();
 		Long cartId = info.getCartId();
-		CartItem cartItem = cartItemRepository.findByIdProductIdAndIdCartId(productId, cartId);
+		CartItem cartItem = cartItemRepository.findByIdProductItemIdAndIdCartId(productItemId, cartId);
 		int currentQuantity = cartItem.getQuantity();
 		
 		int newQuantity = currentQuantity + info.getQuantity();
-		double productPrice = cartItem.getProduct().getPrice();
-		double productWeight = cartItem.getProduct().getWeight();
+		double productPrice = cartItem.getProductItem().getPrice();
 
 		cartItem.setQuantity(newQuantity);
 		cartItem.setTotalPrice(newQuantity * productPrice);
-		cartItem.setTotalWeight(newQuantity * productWeight);
 		cartItemRepository.save(cartItem);
 
 		double finalPrice = updateCart(info.getCartId());
@@ -156,19 +158,20 @@ public class CartItemServiceImpl implements CartItemService {
 		cartItemRepository.deleteAllCheckedItem(cartId);
 	}
 
+	//bug
 	@Override
 	public FinalPriceResponse checkAllItemInShop(ShopCheckRequest info) {
 		Long cartId = info.getCartId();
 		String shopName = info.getShopName();
 
 		Long shopId = shopRepository.findByNameDTO(shopName).getId();
-		List<IProductId> productIdList = productRepository.findAllProductInShop(shopId);
+		List<IProductId> productIdList = productRepository.findAllByShopId(shopId);
 
 		List<ICartItemList> cartItems = new ArrayList<>();
 
 		for (int i = 0; i < productIdList.size(); i++) {
 			Long productId = productIdList.get(i).getId();
-			ICartItemList item = cartItemRepository.findByProductId(productId);
+			ICartItemList item = cartItemRepository.findByProductItemId(productId);
 			if(item != null) {
 				cartItems.add(item);
 			}	
@@ -178,8 +181,8 @@ public class CartItemServiceImpl implements CartItemService {
 		
 	
 		for (ICartItemList iCartItem : cartItems) {
-			Long productId = iCartItem.getProductId();
-			CartItem item = cartItemRepository.findByIdProductIdAndIdCartId(productId, cartId);
+			Long productItemId = iCartItem.getProductItemId();
+			CartItem item = cartItemRepository.findByIdProductItemIdAndIdCartId(productItemId, cartId);
 			if (shopCheck == true) {
 				item.setCheck(false);
 				cartItemRepository.save(item);

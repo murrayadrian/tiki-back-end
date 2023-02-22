@@ -2,33 +2,48 @@ package com.tikifake.model.request.creator;
 
 import com.tikifake.entity.Category;
 
-public class CategoryCreator {
+public class CategoryRequest {
 	
 	private String name;
+	
+	private String urlKey;
+	
+	private String parentKey;
+	
+	private int level;
+	
+	private boolean leaf;
 
-	private String description;
-
-	public Category convertDTOToEntity() {
+	public Category convertDTOToEntity(Category parentCategory) {
 		Category category = new Category();
-		category.setName(this.name);
-		category.setDescription(this.description);
+		category.setName(name);
+		category.setLeaf(leaf);
+		category.setLevel(level);
+		category.setUrlKey(urlKey);
+		category.setParentCategory(parentCategory);
 		return category;
 	}
 
 	public String getName() {
 		return name;
 	}
+	
 
-	public void setName(String name) {
-		this.name = name;
+	public boolean isLeaf() {
+		return leaf;
 	}
 
-	public String getDescription() {
-		return description;
+	public int getLevel() {
+		return level;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public String getParentKey() {
+		return parentKey;
+	}
+
+	public String getUrlKey() {
+		return urlKey;
 	}
 	
+
 }

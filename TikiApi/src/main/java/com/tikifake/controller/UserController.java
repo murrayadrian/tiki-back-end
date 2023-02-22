@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tikifake.model.request.creator.UserCreatorRequest;
@@ -27,7 +29,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
+	@GetMapping("/getUserById/{id}")
 	public ResponseEntity<Object> getUserById(@PathVariable(value = "id") Long userId) {
 		IUserDetail user = userService.getDetailById(userId);
 		if (user == null) {
@@ -36,20 +38,20 @@ public class UserController {
 		return ResponseEntity.ok().body(user);
 	}
 
-	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
+	@GetMapping("/getAllUser")
 	public ResponseEntity<Object> getAllUser() {
 		List<IUserList> users = userService.getAllUser();
 		return ResponseEntity.ok().body(users);
 	}
 
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@PostMapping("/add")
 	public ResponseEntity<Object> addUser(@RequestBody UserCreatorRequest userCreator) {
 		UserCreatorResponse userResponse = userService.save(userCreator);
 		return ResponseEntity.ok().body(userResponse);
 	}
 
-	@RequestMapping(value = "/update", method = RequestMethod.PUT)
-	public ResponseEntity<Object> update(@RequestBody UserUpdateRequest userUpdate) {
+	@PutMapping("/update")
+	public ResponseEntity<Object> updateUser(@RequestBody UserUpdateRequest userUpdate) {
 		UserUpdateResponse userResponse = userService.update(userUpdate);
 		return ResponseEntity.ok().body(userResponse);
 	}

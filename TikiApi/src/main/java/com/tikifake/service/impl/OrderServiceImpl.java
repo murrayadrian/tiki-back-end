@@ -58,16 +58,15 @@ public class OrderServiceImpl implements OrderService {
 		for(CartItem cartItem : items) {
 			OrderItem orderItem = new OrderItem();
 			orderItem.setTotalPrice(cartItem.getTotalPrice());
-			orderItem.setProduct(cartItem.getProduct());
+			orderItem.setProductItem(cartItem.getProductItem());
 			orderItem.setQuantity(cartItem.getQuantity());
-			orderItem.setTotalWeight(cartItem.getTotalWeight());
 			orderItem.setOrder(order);
 			totalCost = totalCost + cartItem.getTotalPrice();
 			
 			order.setTotalCost(totalCost);
 			order.getOrderItems().add(orderItem);
 			
-			cartItemRepository.deleteByIdProductIdAndIdCartId(cartItem.getProductId(), cartItem.getCartId());
+			cartItemRepository.deleteByIdProductItemIdAndIdCartId(cartItem.getProductItemId(), cartItem.getCartId());
 		}
 		
 		cart.setTotalPrice(cart.getTotalPrice() - totalCost);

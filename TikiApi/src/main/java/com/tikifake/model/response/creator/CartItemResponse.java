@@ -6,7 +6,7 @@ public class CartItemResponse {
 	
 	private Long cartId;
 	
-	private Long productId;
+	private Long productItemId;
 	
 	private double totalPrice;
 	
@@ -14,7 +14,7 @@ public class CartItemResponse {
 	
 	public CartItemResponse(CartItem cartItem) {
 		this.cartId = cartItem.getCartId();
-		this.productId = cartItem.getProductId();
+		this.productItemId = cartItem.getProductItemId();
 		this.totalPrice = cartItem.getTotalPrice();
 		this.check = cartItem.isCheck();
 	}
@@ -23,8 +23,8 @@ public class CartItemResponse {
 		return cartId;
 	}
 
-	public Long getProductId() {
-		return productId;
+	public Long getProductItemId() {
+		return productItemId;
 	}
 
 	public double getTotalPrice() {

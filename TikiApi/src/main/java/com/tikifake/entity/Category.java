@@ -1,37 +1,32 @@
 package com.tikifake.entity;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
-@Table(name = "Categories")
-public class Category implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6867992745893110729L;
+public class Category {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_category")
-	@SequenceGenerator(name = "seq_category", allocationSize = 1, initialValue = 1)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "name")
 	private String name;
+	
+	private int level;
+	
+	private boolean leaf;
+	
+	private String urlKey;
+	
+	@ManyToOne
+	@JoinColumn(name = "parent_category_id")
+	private Category parentCategory;
 
-	@Column(name = "description")
-	private String description;
-
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.ALL)
-//	private Set<Product> products;
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -48,19 +43,43 @@ public class Category implements Serializable{
 		this.name = name;
 	}
 
-	public String getDescription() {
-		return description;
+	public Category getParentCategory() {
+		return parentCategory;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setParentCategory(Category parentCategory) {
+		this.parentCategory = parentCategory;
 	}
 
-//	public Set<Product> getProducts() {
-//		return products;
-//	}
-//
-//	public void setProducts(Set<Product> products) {
-//		this.products = products;
-//	}
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public boolean isLeaf() {
+		return leaf;
+	}
+
+	public void setLeaf(boolean leaf) {
+		this.leaf = leaf;
+	}
+
+	public String getUrlKey() {
+		return urlKey;
+	}
+
+	public void setUrlKey(String urlKey) {
+		this.urlKey = urlKey;
+	}
+
+	@Override
+	public String toString() {
+		return "Category [id=" + id + ", name=" + name + ", urlKey=" + urlKey + "]";
+	}
+
+	
+	
 }

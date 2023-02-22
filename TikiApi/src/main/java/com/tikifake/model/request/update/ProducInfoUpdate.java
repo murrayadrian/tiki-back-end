@@ -1,11 +1,9 @@
 package com.tikifake.model.request.update;
 
-import java.time.LocalDateTime;
-
-import com.tikifake.entity.CategorySub;
+import com.tikifake.entity.Category;
 import com.tikifake.entity.Product;
 
-public class ProductUpdate {
+public class ProducInfoUpdate {
 	
 	private Long id;
 
@@ -13,29 +11,22 @@ public class ProductUpdate {
 
 	private String description;
 
-	private double price;
-
 	private String image;
 
 	private String brand;
 
-	private String madeIn;
-
-	private Long categorySubId;
+	private Long categoryId;
 	
 	
 	
-	public Product convertToEntity(CategorySub categorySub, LocalDateTime date) {
+	public Product convertToEntity(Category category) {
 		Product product = new Product();
 		product.setId(id);
 		product.setName(name);
 		product.setDescription(description);
-		product.setPrice(price);
 		product.setImage(image);
 		product.setBrand(brand);
-		product.setMadeIn(madeIn);
-		product.setCreatedDate(date);
-		product.setCategorySub(categorySub);
+		product.setCategory(category);
 		return product;
 	}
 
@@ -51,10 +42,6 @@ public class ProductUpdate {
 		return description;
 	}
 
-	public double getPrice() {
-		return price;
-	}
-
 	public String getImage() {
 		return image;
 	}
@@ -63,11 +50,8 @@ public class ProductUpdate {
 		return brand;
 	}
 
-	public String getMadeIn() {
-		return madeIn;
-	}
 
-	public Long getCategorySubId() {
-		return categorySubId;
+	public Long getCategoryId() {
+		return categoryId;
 	}
 }

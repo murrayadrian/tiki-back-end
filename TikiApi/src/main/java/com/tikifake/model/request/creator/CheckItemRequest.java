@@ -4,7 +4,7 @@ public class CheckItemRequest {
 	
 	private Long cartId;
 
-	private Long productId;
+	private Long productItemId;
 	
 	private String shopName;
 	
@@ -13,8 +13,8 @@ public class CheckItemRequest {
 		return cartId;
 	}
 
-	public Long getProductId() {
-		return productId;
+	public Long getProductItemId() {
+		return productItemId;
 	}
 
 	public String getShopName() {

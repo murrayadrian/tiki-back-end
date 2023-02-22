@@ -1,40 +1,44 @@
 package com.tikifake.service.impl;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.tikifake.entity.CategorySub;
+import com.tikifake.entity.Category;
 import com.tikifake.entity.Product;
+import com.tikifake.entity.ProductItem;
+import com.tikifake.entity.Shop;
 import com.tikifake.model.request.creator.ProductCreator;
-import com.tikifake.model.request.update.ProductUpdate;
+import com.tikifake.model.request.update.ProducInfoUpdate;
 import com.tikifake.model.response.creator.ProductResponse;
-import com.tikifake.model.response.detail.ICategorySubDetail;
+import com.tikifake.model.response.creator.ProductSaveResponse;
 import com.tikifake.model.response.detail.IProductDetail;
-
-import com.tikifake.model.response.list.IProductList;
-
-import com.tikifake.repository.CategorySubRepository;
+import com.tikifake.repository.CategoryRepository;
+import com.tikifake.repository.ProductItemRepository;
 import com.tikifake.repository.ProductRepository;
+import com.tikifake.repository.ShopRepository;
 import com.tikifake.service.ProductService;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-	private final int SIZE = 5;
 
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private ProductItemRepository productItemRepository;
 
 	@Autowired
-	private CategorySubRepository categorySubRepository;
+	private CategoryRepository categoryRepository;
+	
+	@Autowired
+	private ShopRepository shopRepository;
 
 	@Override
 	public IProductDetail getDetailById(Long productId) {
@@ -42,52 +46,44 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<IProductList> getAll(int page) {
-		Pageable pageable = PageRequest.of(page, SIZE, Sort.by("name").descending());
-		List<IProductList> findAllCategory = productRepository.findAllDTO(pageable);
-		return findAllCategory;
-	}
-
-	@Override
-	public List<IProductDetail> getByCategorySubId(Long id) {
-		return productRepository.findByCategorySubId(id);
-	}
-
-	@Override
-	public Map<String, List<IProductDetail>> getByCategoryId(Long id) {
-
-		List<ICategorySubDetail> iCategorySubs = categorySubRepository.findByCategoryId(id);
-		List<IProductDetail> iProductList = new ArrayList<>();
-		Map<String, List<IProductDetail>> iProductMap = new HashMap<>();
-
-		for (int i = 0; i < iCategorySubs.size(); i++) {
-			String categorySubName = iCategorySubs.get(i).getName();
-			Long categorySubId = iCategorySubs.get(i).getId();
-
-			iProductList = productRepository.findByCategorySubId(categorySubId);
-			iProductMap.putIfAbsent(categorySubName, iProductList);
+	public List<ProductResponse> getAll(int pageNumber, int limit) {
+		PageRequest page = PageRequest.of(pageNumber - 1, limit);
+		Page<Product> products = productRepository.findAll(page);
+		List<ProductResponse> response = new ArrayList<>();
+		for(Product product : products) {
+			ProductItem productItem = productItemRepository.findTop1ByProductOrderByPrice(product);
+			double cheeppestPrice = productItem.getPrice();
+			int qtySold = productItem.getQtySold();
+			int discountRate = productItem.getDiscountRate();
+			String image = productItem.getImage();
+			response.add(new ProductResponse(product,cheeppestPrice, qtySold, discountRate, image));
 		}
-
-		return iProductMap;
+		return response;
 	}
 
 	@Override
-	public ProductResponse save(ProductCreator productCreator) {
-		CategorySub categoryModel = categorySubRepository.findById(productCreator.getCategorySubId()).get();
-		Product product = productCreator.convertDTOToEntity(categoryModel);
+	public ProductSaveResponse save(ProductCreator productCreator) {
+		Category category = categoryRepository.findById(productCreator.getCategoryId()).get();
+		Shop shop = shopRepository.findById(productCreator.getShopId()).get();
+		LocalDateTime now = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+		String formatDateTime = now.format(formatter);
+		
+		Product product = productCreator.convertDTOToEntity(category, shop, formatDateTime);
 		Product result = productRepository.save(product);
-		ProductResponse productAdd = new ProductResponse(result);
-		return productAdd;
+		ProductSaveResponse response = new ProductSaveResponse(result);
+		return response;
 	}
 
 	@Override
-	public void update(ProductUpdate productUpdate) {
-		CategorySub categorySub = categorySubRepository.findById(productUpdate.getCategorySubId()).get();
-		Product existedProduct = productRepository.findById(productUpdate.getId()).get();
-		// nếu không set lại date thì date sẽ là null sau khi update
-		LocalDateTime date = existedProduct.getCreatedDate();
-		Product product = productUpdate.convertToEntity(categorySub, date);
+	public void updateInfo(ProducInfoUpdate producInfoUpdate) {
+		Category category = categoryRepository.findById(producInfoUpdate.getCategoryId()).get();
+		Product product = producInfoUpdate.convertToEntity(category);
 		productRepository.save(product);
 	}
 
+	@Override
+	public List<IProductDetail> getAllByCategoryId(Long id) {
+		return productRepository.findAllByCategoryId(id);
+	}
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.tikifake.entity.Cart;
 import com.tikifake.entity.CartItem;
 import com.tikifake.entity.Product;
+import com.tikifake.entity.ProductItem;
 import com.tikifake.entity.Shop;
 import com.tikifake.model.response.creator.CartDTO;
 import com.tikifake.model.response.creator.CartItemCreatorResponse;
@@ -20,7 +21,7 @@ import com.tikifake.model.response.list.ICartItemInfo;
 import com.tikifake.model.response.list.ICartItemList;
 import com.tikifake.repository.CartItemRepository;
 import com.tikifake.repository.CartRepository;
-import com.tikifake.repository.ProductRepository;
+import com.tikifake.repository.ProductItemRepository;
 import com.tikifake.repository.ShopRepository;
 import com.tikifake.repository.UserRepository;
 import com.tikifake.service.CartService;
@@ -35,7 +36,7 @@ public class CartServiceImpl implements CartService {
 	private CartRepository cartRepository;
 	
 	@Autowired
-	private ProductRepository productRepository;
+	private ProductItemRepository productItemRepository;
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -80,7 +81,8 @@ public class CartServiceImpl implements CartService {
 		int itemSize = cartItems.size();
 		
 		for(ICartItemList item : cartItems) {
-			Product product = productRepository.findById(item.getProductId()).get();
+			ProductItem productItem = productItemRepository.findById(item.getProductItemId()).get();
+			Product product = productItem.getProduct();
 			Shop shop = shopRepository.findById(product.getShop().getId()).get();
 			String shopName = shop.getName();
 			itemMap.putIfAbsent(shopName, new ArrayList<>());

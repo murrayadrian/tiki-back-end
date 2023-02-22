@@ -5,18 +5,18 @@ import com.tikifake.entity.CartItem;
 public class CartItemCreatorResponse {
 
 	private Long cartId;
-	private Long productId;
+	private Long productItemId;
 	private String productName;
-	private double productPrice;
+	private double price;
 	private int orderQuantity;
 	private double totalPrice;
 	private boolean isCheck;
 
 	public CartItemCreatorResponse(CartItem cartItem) {
 		this.cartId = cartItem.getCart().getId();
-		this.productId = cartItem.getProduct().getId();
-		this.productName = cartItem.getProduct().getName();
-		this.productPrice = cartItem.getProduct().getPrice();
+		this.productItemId = cartItem.getProductItemId();
+		this.productName = cartItem.getProductItem().getProduct().getName();
+		this.price = cartItem.getProductItem().getPrice();
 		this.orderQuantity = cartItem.getQuantity();
 		this.totalPrice = cartItem.getTotalPrice();
 		this.isCheck = cartItem.isCheck();
@@ -26,16 +26,16 @@ public class CartItemCreatorResponse {
 		return cartId;
 	}
 
-	public Long getProductId() {
-		return productId;
+	public Long getProductItemId() {
+		return productItemId;
 	}
 
 	public String getProductName() {
 		return productName;
 	}
 
-	public double getProductPrice() {
-		return productPrice;
+	public double getPrice() {
+		return price;
 	}
 
 	public int getOrderQuantity() {

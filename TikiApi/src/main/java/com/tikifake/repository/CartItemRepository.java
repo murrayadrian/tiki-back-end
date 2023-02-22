@@ -18,7 +18,7 @@ public interface CartItemRepository extends JpaRepository<CartItem, CartItemId> 
 	@Query("select c from CartItem c where c.id.cartId = ?1")
 	public List<ICartItemList> findAllItemInCartDTO(Long cartId);
 	
-	public CartItem findByIdProductIdAndIdCartId(Long productId, Long cartId);
+	public CartItem findByIdProductItemIdAndIdCartId(Long productItemId, Long cartId);
 	
 	@Query("select c from CartItem c where c.id.cartId = ?1 and c.isCheck = 1")
 	public List<CartItem> findAllCheckedItemInCart(Long cartId);
@@ -27,10 +27,10 @@ public interface CartItemRepository extends JpaRepository<CartItem, CartItemId> 
 	public List<ICartItemList> findAllCheckedItemInCartDTO(Long cartId);
 	
 	@Modifying
-	public void deleteByIdProductIdAndIdCartId(Long productId, Long cartId);
+	public void deleteByIdProductItemIdAndIdCartId(Long productItemId, Long cartId);
 	
-	@Query("select c from CartItem c where c.id.productId = ?1")
-	public ICartItemList findByProductId(Long productId);
+	@Query("select c from CartItem c where c.id.productItemId = ?1")
+	public ICartItemList findByProductItemId(Long productItemId);
 	
 	@Modifying
 	@Query("delete from CartItem c where c.id.cartId = ?1 and c.isCheck = 1")

@@ -4,23 +4,23 @@ public class RemoveProductRequest {
 	
 	private Long cartId;
 
-	private Long productId;
+	private Long productItemId;
 	
 	
 
 	public RemoveProductRequest() {
 	}
 
-	public RemoveProductRequest(Long productId, Long cartId) {
+	public RemoveProductRequest(Long productItemId, Long cartId) {
 		this.cartId = cartId;
-		this.productId = productId;
+		this.productItemId = productItemId;
 	}
 
 	public Long getCartId() {
 		return cartId;
 	}
 
-	public Long getProductId() {
-		return productId;
+	public Long getProductItemId() {
+		return productItemId;
 	}
 }

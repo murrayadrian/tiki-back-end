@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tikifake.model.request.creator.RoleCreatorRequest;
@@ -25,7 +27,7 @@ public class RoleController {
 	@Autowired
 	private RoleService roleService;
 
-	@RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
+	@GetMapping("/getRoleById/{id}")
 	public ResponseEntity<Object> getRoleById(@PathVariable(value = "id") Long roleId) {
 		IRoleDetail role = roleService.getDetailById(roleId);
 		if (role== null) {
@@ -34,20 +36,20 @@ public class RoleController {
 		return ResponseEntity.ok().body(role);
 	}
 
-	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
+	@GetMapping("/getAllRole")
 	public ResponseEntity<Object> getAllRole() {
 		List<IRoleList> roles = roleService.getAllRole();
 		return ResponseEntity.ok().body(roles);
 	}
 
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@PostMapping("/addRole")
 	public ResponseEntity<Object> addRole(@RequestBody RoleCreatorRequest roleCreator) {
 		RoleCreatorResponse roleResponse = roleService.save(roleCreator);
 		return ResponseEntity.ok().body(roleResponse);
 	}
 
-	@RequestMapping(value = "/update", method = RequestMethod.PUT)
-	public ResponseEntity<Object> update(@RequestBody RoleUpdateRequest roleUpdate) {
+	@PutMapping("/updateRole")
+	public ResponseEntity<Object> updateRole(@RequestBody RoleUpdateRequest roleUpdate) {
 		RoleUpdateResponse roleResponse = roleService.update(roleUpdate);
 		return ResponseEntity.ok().body(roleResponse);
 	}

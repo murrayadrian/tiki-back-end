@@ -7,15 +7,12 @@ public class CategoryUpdate {
 	private Long id;
 
 	private String name;
-
-	private String description;
 	
 	
 	public Category convertUpdateToEntity() {
 		Category category = new Category();
 		category.setId(id);
 		category.setName(name);
-		category.setDescription(description);
 		return category;
 	}
 
@@ -27,11 +24,6 @@ public class CategoryUpdate {
 
 	public String getName() {
 		return name;
-	}
-
-
-	public String getDescription() {
-		return description;
 	}
 
 }

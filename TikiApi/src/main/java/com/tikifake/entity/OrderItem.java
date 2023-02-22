@@ -1,68 +1,63 @@
 package com.tikifake.entity;
 
-import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
-import javax.persistence.Table;
 
 import com.tikifake.entity.embeddedid.OrderItemId;
 
 @Entity
-@Table(name="order_item")
 public class OrderItem {
 	
 	@EmbeddedId
 	public OrderItemId id = new OrderItemId();
 	
 	@MapsId("orderId")
-	@JoinColumns({ @JoinColumn(name = "order_id", referencedColumnName = "order_id") })
 	@ManyToOne
 	private Order order;
 	
-	@MapsId("productId")
-	@JoinColumns({ @JoinColumn(name = "product_id", referencedColumnName = "product_id") })
+	@MapsId("productItemId")
 	@ManyToOne
-	private Product product;
+	private ProductItem productItem;
 	
-	@Column(name = "quantity")
 	private int quantity;
 
-	@Column(name = "total_price")
 	private double totalPrice;
-
-	@Column(name = "total_weight")
-	private double totalWeight;
 	
 	//
 	public Long getOrderId() {
 		return order.getId();
 	}
 	
-	public Long getProductId() {
-		return this.product.getId();
+	public Long getProductItemId() {
+		return this.productItem.getId();
 	}
 	
-	public String getProductName() {
-		return this.product.getName();
-	}
-	public double getProductPrice() {
-		return this.product.getPrice();
+	public double getProductItemPrice() {
+		return this.productItem.getPrice();
 	}
 	//
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
+	
 
 	public int getQuantity() {
 		return quantity;
+	}
+
+	public OrderItemId getId() {
+		return id;
+	}
+
+	public void setId(OrderItemId id) {
+		this.id = id;
+	}
+
+	public ProductItem getProductItem() {
+		return productItem;
+	}
+
+	public void setProductItem(ProductItem productItem) {
+		this.productItem = productItem;
 	}
 
 	public void setQuantity(int quantity) {
@@ -75,14 +70,6 @@ public class OrderItem {
 
 	public void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
-	}
-
-	public double getTotalWeight() {
-		return totalWeight;
-	}
-
-	public void setTotalWeight(double totalWeight) {
-		this.totalWeight = totalWeight;
 	}
 
 	public Order getOrder() {

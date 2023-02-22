@@ -3,28 +3,22 @@ package com.tikifake.entity;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
-import javax.persistence.Table;
 
 import com.tikifake.entity.embeddedid.CartItemId;
 
 @Entity
-@Table(name = "cart_item")
 public class CartItem {
 
 	@EmbeddedId
 	public CartItemId id = new CartItemId();
 
-	@MapsId("productId")
-	@JoinColumns({ @JoinColumn(name = "product_id", referencedColumnName = "product_id") })
+	@MapsId("productItemId")
 	@ManyToOne
-	private Product product;
+	private ProductItem productItem;
 
 	@MapsId("cartId")
-	@JoinColumns({ @JoinColumn(name = "cart_id", referencedColumnName = "cart_id") })
 	@ManyToOne
 	private Cart cart;
 	
@@ -34,62 +28,44 @@ public class CartItem {
 	@Column(name = "total_price")
 	private double totalPrice;
 
-	@Column(name = "total_weight")
-	private double totalWeight;
-	
 	@Column(name = "checked")
 	private boolean isCheck;
+
+	//
+	public String getProductName() {
+		return productItem.getProduct().getName();
+	};
 	
+	public String getProductImage() {
+		return productItem.getProduct().getImage();
+	}
+	
+	public double getProductPrice() {
+		return productItem.getPrice();
+	}
 	//
 	
 	public Long getCartId() {
-		return this.id.cartId;
+		return id.cartId;
 	}
-	public Long getProductId() {
-		return this.id.productId;
-	}
-	public String getProductName() {
-		return product.getName();
-	}
-	public String getProductImage() {
-		return product.getImage();
-	}
-	public double getProductPrice() {
-		return product.getPrice();
-	}
-	public int getQuantity() {
-		return quantity;
-	}
-	public boolean isCheck() {
-		return isCheck;
-	}
-	public double getTotalPrice() {
-		return totalPrice;
+	public Long getProductItemId() {
+		return id.productItemId;
 	}
 	
-	//
-	public Product getProduct() {
-		return product;
+	public CartItemId getId() {
+		return id;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setId(CartItemId id) {
+		this.id = id;
 	}
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+	public ProductItem getProductItem() {
+		return productItem;
 	}
 
-	public void setTotalPrice(double totalPrice) {
-		this.totalPrice = totalPrice;
-	}
-
-	public double getTotalWeight() {
-		return totalWeight;
-	}
-
-	public void setTotalWeight(double totalWeight) {
-		this.totalWeight = totalWeight;
+	public void setProductItem(ProductItem productItem) {
+		this.productItem = productItem;
 	}
 
 	public Cart getCart() {
@@ -100,14 +76,28 @@ public class CartItem {
 		this.cart = cart;
 	}
 
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public boolean isCheck() {
+		return isCheck;
+	}
+
 	public void setCheck(boolean isCheck) {
 		this.isCheck = isCheck;
 	}
-	@Override
-	public String toString() {
-		return "CartItem [id=" + id + ", quantity=" + quantity + ", totalPrice=" + totalPrice + ", totalWeight="
-				+ totalWeight + ", isCheck=" + isCheck + "]";
-	}
-	
 	
 }

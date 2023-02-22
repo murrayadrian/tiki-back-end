@@ -7,17 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "Users")
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_user")
-	@SequenceGenerator(name = "seq_user", allocationSize = 1)
-	@Column(name = "user_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(name = "name")
@@ -33,7 +28,7 @@ public class User {
 	private String email;
 	
 	@ManyToOne
-	@JoinColumn(name = "role_id", referencedColumnName = "role_id")
+	@JoinColumn(name = "role_id")
 	private Role role;
 
 	public Long getRoleId() {
